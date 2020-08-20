@@ -41,6 +41,11 @@ class UserController extends Controller
         //
     }
 
+    public function profile(User $user)
+    {
+        return response($user, 201);
+    }
+
     /**
      * Display the specified resource.
      *
