@@ -32,10 +32,7 @@ class LoginController extends Controller
 
         $user->tokens()->delete();
 
-        $user->createToken($request->device_name, ['server:get']);
-        $user->createToken($request->device_name, ['server:update']);
-        $user->createToken($request->device_name, ['server:create']);
-        $user->createToken($request->device_name, ['server:destroy']);
+        $user->createToken($request->device_name);
 
         return new UserResource($user);
     }

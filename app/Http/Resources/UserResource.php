@@ -15,11 +15,11 @@ class UserResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'name' => $this->name,
-            'email' => $this->email,
-            'avatar' => $this->avatar,
-            'notify_token' => $this->notify_token,
-            'tokens' => UserTokenResource::collection($this->tokens()->get())
+            'name'          => $this->name,
+            'email'         => $this->email,
+            'avatar'        => $this->avatar,
+            'notify_token'  => $this->notify_token,
+            'tokens'        => new UserTokenResource($this->tokens()->first())
         ];
     }
 }

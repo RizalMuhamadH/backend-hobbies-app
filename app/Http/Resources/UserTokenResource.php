@@ -15,8 +15,9 @@ class UserTokenResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'token' => $this->token,
-            'abilities' => $this->abilities,
+            'token'         => $this->token,
+            'name'          => $this->name,
+            'abilities'     => $this->abilities,
         ];
     }
 }
