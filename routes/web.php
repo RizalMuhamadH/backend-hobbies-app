@@ -28,3 +28,4 @@ Route::group(['prefix' => 'admin'], function () {
 // https://modestasv.com/chat-with-laravel-pusher-and-socket-io-at-your-command/?utm_source=learninglaravel
 // https://pusher.com/tutorials/group-chat-laravel
 // https://www.youtube.com/watch?v=D9oIu6jiYLk
+// https://medium.com/flutter-community/implement-real-time-location-updates-on-google-maps-in-flutter-235c8a09173e
