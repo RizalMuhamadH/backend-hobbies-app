@@ -64,13 +64,13 @@
                                 autocomplete="new-password">
                         </div>
 
-                        @can('editRoles', $dataTypeContent)
+                        {{--  @can('editRole', $dataTypeContent)  --}}
                         <div class="form-group">
                             <label for="default_role">{{ __('voyager::profile.role_default') }}</label>
                             @php
                             $dataTypeRows = $dataType->{(isset($dataTypeContent->id) ? 'editRows' : 'addRows' )};
 
-                            $row = $dataTypeRows->where('field', 'admin_belongsto_role_relationship_1')->first();
+                            $row = $dataTypeRows->where('field', 'admin_belongsto_role_relationship')->first();
                             $options = $row->details;
                             @endphp
                             @include('voyager::formfields.relationship')
@@ -83,7 +83,7 @@
                         @endphp
                         @include('voyager::formfields.relationship')
                     </div> --}}
-                    @endcan
+                    {{--  @endcan  --}}
                     @php
                     if (isset($dataTypeContent->locale)) {
                     $selected_locale = $dataTypeContent->locale;

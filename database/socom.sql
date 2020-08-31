@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 19, 2020 at 11:53 AM
+-- Generation Time: Aug 31, 2020 at 07:11 AM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -45,9 +45,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `role_id`, `name`, `email`, `avatar`, `password`, `remember_token`, `settings`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Administrator', 'admin@admin.com', 'users/default.png', '$2y$10$yH6be0p3HGwaIre7f78/yeWT9n0Pp3J1p8MYSk4D5ZcdthFiCL2D.', NULL, NULL, '2020-08-18 19:43:57', '2020-08-18 19:43:57'),
-(2, 3, 'Rizal Muhamad H', 'rizalmuhamadh@gmail.com', 'users/default.png', '$2y$10$w2hI79j2JpVbbL7.Ro1wwuGFckWKzCFMTG4cNbiAPH9kd5P4A2gpa', NULL, '{\"locale\":\"id\"}', '2020-08-18 20:04:41', '2020-08-18 20:34:31'),
-(3, 3, 'test', 'test@email.com', 'users/default.png', '$2y$10$0NVwKYKOvURI7EKlZYohKejNtLNk7mzaFAn1ruZIsGHu9c3fb2gKq', NULL, '{\"locale\":\"en\"}', '2020-08-18 20:31:06', '2020-08-18 20:34:21');
+(1, 1, 'Administrator', 'admin@admin.com', 'users/default.png', '$2y$10$nLGwhi95sd6ngrH9JY2PxepGLVWo7K9dxws4ipbc1/lnisq4k7/rG', NULL, NULL, '2020-08-30 21:45:32', '2020-08-30 21:45:32');
 
 -- --------------------------------------------------------
 
@@ -83,7 +81,7 @@ INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, 
 (5, 1, 'remember_token', 'text', 'Remember Token', 0, 0, 0, 0, 0, 0, '{}', 5),
 (6, 1, 'created_at', 'timestamp', 'Created At', 0, 1, 1, 0, 0, 0, '{}', 6),
 (7, 1, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, '{}', 7),
-(8, 1, 'avatar', 'image', 'Avatar', 0, 1, 1, 1, 1, 1, '{}', 8),
+(8, 1, 'avatar', 'image', 'Avatar', 1, 1, 1, 1, 1, 1, '{}', 8),
 (11, 1, 'settings', 'hidden', 'Settings', 0, 0, 0, 0, 0, 0, '{}', 12),
 (12, 2, 'id', 'number', 'ID', 1, 0, 0, 0, 0, 0, NULL, 1),
 (13, 2, 'name', 'text', 'Name', 1, 1, 1, 1, 1, 1, NULL, 2),
@@ -94,21 +92,20 @@ INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, 
 (18, 3, 'created_at', 'timestamp', 'Created At', 0, 0, 0, 0, 0, 0, NULL, 3),
 (19, 3, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, NULL, 4),
 (20, 3, 'display_name', 'text', 'Display Name', 1, 1, 1, 1, 1, 1, NULL, 5),
-(21, 1, 'role_id', 'text', 'Role', 0, 1, 1, 1, 1, 1, '{}', 9),
+(21, 1, 'role_id', 'text', 'Role', 0, 0, 0, 0, 0, 0, '{}', 9),
 (22, 4, 'id', 'text', 'Id', 1, 0, 0, 0, 0, 0, '{}', 1),
 (23, 4, 'role_id', 'text', 'Role Id', 0, 1, 1, 1, 1, 1, '{}', 2),
 (24, 4, 'name', 'text', 'Name', 1, 1, 1, 1, 1, 1, '{}', 3),
 (25, 4, 'email', 'text', 'Email', 1, 1, 1, 1, 1, 1, '{}', 4),
 (26, 4, 'avatar', 'image', 'Avatar', 0, 1, 1, 1, 1, 1, '{}', 5),
-(27, 4, 'password', 'password', 'Password', 0, 0, 0, 1, 1, 0, '{}', 6),
+(27, 4, 'password', 'text', 'Password', 0, 0, 0, 1, 1, 0, '{}', 6),
 (28, 4, 'remember_token', 'text', 'Remember Token', 0, 0, 0, 0, 0, 0, '{}', 7),
-(29, 4, 'settings', 'hidden', 'Settings', 0, 0, 0, 0, 0, 0, '{}', 8),
-(30, 4, 'created_at', 'timestamp', 'Created At', 0, 1, 1, 0, 0, 1, '{}', 9),
+(29, 4, 'settings', 'text', 'Settings', 0, 0, 0, 0, 0, 0, '{}', 8),
+(30, 4, 'created_at', 'timestamp', 'Created At', 0, 1, 0, 0, 0, 1, '{}', 9),
 (31, 4, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, '{}', 10),
-(33, 4, 'admin_belongsto_role_relationship_1', 'relationship', 'Role', 0, 1, 1, 1, 1, 0, '{\"model\":\"TCG\\\\Voyager\\\\Models\\\\Role\",\"table\":\"roles\",\"type\":\"belongsTo\",\"column\":\"role_id\",\"key\":\"id\",\"label\":\"display_name\",\"pivot_table\":\"admins\",\"pivot\":\"0\",\"taggable\":\"0\"}', 12),
+(32, 4, 'admin_belongsto_role_relationship', 'relationship', 'role', 0, 1, 1, 1, 1, 1, '{\"model\":\"TCG\\\\Voyager\\\\Models\\\\Role\",\"table\":\"roles\",\"type\":\"belongsTo\",\"column\":\"role_id\",\"key\":\"id\",\"label\":\"display_name\",\"pivot_table\":\"admins\",\"pivot\":\"0\",\"taggable\":\"0\"}', 11),
 (34, 1, 'email_verified_at', 'timestamp', 'Email Verified At', 0, 1, 1, 1, 1, 1, '{}', 6),
-(35, 1, 'user_belongsto_role_relationship', 'relationship', 'Role', 0, 1, 1, 1, 1, 0, '{\"model\":\"TCG\\\\Voyager\\\\Models\\\\Role\",\"table\":\"roles\",\"type\":\"belongsTo\",\"column\":\"role_id\",\"key\":\"id\",\"label\":\"display_name\",\"pivot_table\":\"roles\",\"pivot\":0}', 10),
-(36, 1, 'user_belongstomany_role_relationship', 'relationship', 'Roles', 0, 1, 1, 1, 1, 0, '{\"model\":\"TCG\\\\Voyager\\\\Models\\\\Role\",\"table\":\"roles\",\"type\":\"belongsToMany\",\"column\":\"id\",\"key\":\"id\",\"label\":\"display_name\",\"pivot_table\":\"user_roles\",\"pivot\":\"1\",\"taggable\":\"0\"}', 11);
+(35, 1, 'notify_token', 'text', 'Notify Token', 1, 1, 1, 1, 1, 1, '{}', 8);
 
 -- --------------------------------------------------------
 
@@ -139,10 +136,10 @@ CREATE TABLE `data_types` (
 --
 
 INSERT INTO `data_types` (`id`, `name`, `slug`, `display_name_singular`, `display_name_plural`, `icon`, `model_name`, `policy_name`, `controller`, `description`, `generate_permissions`, `server_side`, `details`, `created_at`, `updated_at`) VALUES
-(1, 'users', 'users', 'User', 'Users', 'voyager-person', 'TCG\\Voyager\\Models\\User', 'TCG\\Voyager\\Policies\\UserPolicy', 'TCG\\Voyager\\Http\\Controllers\\VoyagerUserController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"desc\",\"default_search_key\":null,\"scope\":null}', '2020-08-18 19:42:56', '2020-08-19 02:15:56'),
-(2, 'menus', 'menus', 'Menu', 'Menus', 'voyager-list', 'TCG\\Voyager\\Models\\Menu', NULL, '', '', 1, 0, NULL, '2020-08-18 19:42:56', '2020-08-18 19:42:56'),
-(3, 'roles', 'roles', 'Role', 'Roles', 'voyager-lock', 'TCG\\Voyager\\Models\\Role', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerRoleController', '', 1, 0, NULL, '2020-08-18 19:42:56', '2020-08-18 19:42:56'),
-(4, 'admins', 'admins', 'Admin', 'Admins', 'voyager-key', 'App\\Admin', 'TCG\\Voyager\\Policies\\UserPolicy', '\\App\\Http\\Controllers\\Voyager\\AdminController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2020-08-18 19:48:31', '2020-08-18 20:35:00');
+(1, 'users', 'users', 'User', 'Users', 'voyager-person', 'TCG\\Voyager\\Models\\User', 'TCG\\Voyager\\Policies\\UserPolicy', 'TCG\\Voyager\\Http\\Controllers\\VoyagerUserController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"desc\",\"default_search_key\":null,\"scope\":null}', '2020-08-30 21:44:28', '2020-08-30 22:00:40'),
+(2, 'menus', 'menus', 'Menu', 'Menus', 'voyager-list', 'TCG\\Voyager\\Models\\Menu', NULL, '', '', 1, 0, NULL, '2020-08-30 21:44:28', '2020-08-30 21:44:28'),
+(3, 'roles', 'roles', 'Role', 'Roles', 'voyager-lock', 'TCG\\Voyager\\Models\\Role', NULL, 'TCG\\Voyager\\Http\\Controllers\\VoyagerRoleController', '', 1, 0, NULL, '2020-08-30 21:44:28', '2020-08-30 21:44:28'),
+(4, 'admins', 'admins', 'Admin', 'Admins', 'voyager-people', 'App\\Admin', 'TCG\\Voyager\\Policies\\UserPolicy', 'TCG\\Voyager\\Http\\Controllers\\VoyagerUserController', NULL, 1, 0, '{\"order_column\":null,\"order_display_column\":null,\"order_direction\":\"asc\",\"default_search_key\":null,\"scope\":null}', '2020-08-30 21:50:32', '2020-08-30 22:09:53');
 
 -- --------------------------------------------------------
 
@@ -177,7 +174,7 @@ CREATE TABLE `menus` (
 --
 
 INSERT INTO `menus` (`id`, `name`, `created_at`, `updated_at`) VALUES
-(1, 'admin', '2020-08-18 19:42:56', '2020-08-18 19:42:56');
+(1, 'admin', '2020-08-30 21:44:29', '2020-08-30 21:44:29');
 
 -- --------------------------------------------------------
 
@@ -206,18 +203,18 @@ CREATE TABLE `menu_items` (
 --
 
 INSERT INTO `menu_items` (`id`, `menu_id`, `title`, `url`, `target`, `icon_class`, `color`, `parent_id`, `order`, `created_at`, `updated_at`, `route`, `parameters`) VALUES
-(1, 1, 'Dashboard', '', '_self', 'voyager-boat', NULL, NULL, 1, '2020-08-18 19:42:56', '2020-08-18 19:42:56', 'voyager.dashboard', NULL),
-(2, 1, 'Media', '', '_self', 'voyager-images', NULL, NULL, 5, '2020-08-18 19:42:56', '2020-08-18 19:42:56', 'voyager.media.index', NULL),
-(3, 1, 'Users', '', '_self', 'voyager-person', NULL, NULL, 4, '2020-08-18 19:42:56', '2020-08-18 20:35:15', 'voyager.users.index', NULL),
-(4, 1, 'Roles', '', '_self', 'voyager-lock', NULL, NULL, 3, '2020-08-18 19:42:56', '2020-08-18 20:35:15', 'voyager.roles.index', NULL),
-(5, 1, 'Tools', '', '_self', 'voyager-tools', NULL, NULL, 6, '2020-08-18 19:42:56', '2020-08-18 20:35:15', NULL, NULL),
-(6, 1, 'Menu Builder', '', '_self', 'voyager-list', NULL, 5, 1, '2020-08-18 19:42:56', '2020-08-18 20:35:15', 'voyager.menus.index', NULL),
-(7, 1, 'Database', '', '_self', 'voyager-data', NULL, 5, 2, '2020-08-18 19:42:56', '2020-08-18 20:35:15', 'voyager.database.index', NULL),
-(8, 1, 'Compass', '', '_self', 'voyager-compass', NULL, 5, 3, '2020-08-18 19:42:56', '2020-08-18 20:35:15', 'voyager.compass.index', NULL),
-(9, 1, 'BREAD', '', '_self', 'voyager-bread', NULL, 5, 4, '2020-08-18 19:42:56', '2020-08-18 20:35:15', 'voyager.bread.index', NULL),
-(10, 1, 'Settings', '', '_self', 'voyager-settings', NULL, NULL, 7, '2020-08-18 19:42:56', '2020-08-18 20:35:15', 'voyager.settings.index', NULL),
-(11, 1, 'Hooks', '', '_self', 'voyager-hook', NULL, 5, 5, '2020-08-18 19:42:56', '2020-08-18 20:35:15', 'voyager.hooks', NULL),
-(12, 1, 'Admins', '', '_self', 'voyager-key', NULL, NULL, 2, '2020-08-18 19:48:31', '2020-08-18 20:35:15', 'voyager.admins.index', NULL);
+(1, 1, 'Dashboard', '', '_self', 'voyager-boat', NULL, NULL, 1, '2020-08-30 21:44:29', '2020-08-30 21:44:29', 'voyager.dashboard', NULL),
+(2, 1, 'Media', '', '_self', 'voyager-images', NULL, NULL, 5, '2020-08-30 21:44:29', '2020-08-30 21:44:29', 'voyager.media.index', NULL),
+(3, 1, 'Users', '', '_self', 'voyager-person', NULL, NULL, 4, '2020-08-30 21:44:29', '2020-08-30 22:10:37', 'voyager.users.index', NULL),
+(4, 1, 'Roles', '', '_self', 'voyager-lock', NULL, NULL, 3, '2020-08-30 21:44:29', '2020-08-30 22:10:37', 'voyager.roles.index', NULL),
+(5, 1, 'Tools', '', '_self', 'voyager-tools', NULL, NULL, 6, '2020-08-30 21:44:29', '2020-08-30 22:10:37', NULL, NULL),
+(6, 1, 'Menu Builder', '', '_self', 'voyager-list', NULL, 5, 1, '2020-08-30 21:44:29', '2020-08-30 22:10:37', 'voyager.menus.index', NULL),
+(7, 1, 'Database', '', '_self', 'voyager-data', NULL, 5, 2, '2020-08-30 21:44:29', '2020-08-30 22:10:37', 'voyager.database.index', NULL),
+(8, 1, 'Compass', '', '_self', 'voyager-compass', NULL, 5, 3, '2020-08-30 21:44:29', '2020-08-30 22:10:37', 'voyager.compass.index', NULL),
+(9, 1, 'BREAD', '', '_self', 'voyager-bread', NULL, 5, 4, '2020-08-30 21:44:29', '2020-08-30 22:10:37', 'voyager.bread.index', NULL),
+(10, 1, 'Settings', '', '_self', 'voyager-settings', NULL, NULL, 7, '2020-08-30 21:44:29', '2020-08-30 22:10:37', 'voyager.settings.index', NULL),
+(11, 1, 'Hooks', '', '_self', 'voyager-hook', NULL, 5, 5, '2020-08-30 21:44:29', '2020-08-30 22:10:37', 'voyager.hooks', NULL),
+(12, 1, 'Admins', '', '_self', 'voyager-people', '#000000', NULL, 2, '2020-08-30 21:50:33', '2020-08-30 22:10:37', 'voyager.admins.index', 'null');
 
 -- --------------------------------------------------------
 
@@ -258,8 +255,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (20, '2018_03_14_000000_add_details_to_data_types_table', 1),
 (21, '2018_03_16_000000_make_settings_value_nullable', 1),
 (22, '2019_08_19_000000_create_failed_jobs_table', 1),
-(23, '2020_08_11_074706_create_admins_table', 1),
-(24, '2019_12_14_000001_create_personal_access_tokens_table', 2);
+(23, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+(24, '2020_08_11_074706_create_admins_table', 1);
 
 -- --------------------------------------------------------
 
@@ -280,37 +277,37 @@ CREATE TABLE `permissions` (
 --
 
 INSERT INTO `permissions` (`id`, `key`, `table_name`, `created_at`, `updated_at`) VALUES
-(1, 'browse_admin', NULL, '2020-08-18 19:42:56', '2020-08-18 19:42:56'),
-(2, 'browse_bread', NULL, '2020-08-18 19:42:56', '2020-08-18 19:42:56'),
-(3, 'browse_database', NULL, '2020-08-18 19:42:56', '2020-08-18 19:42:56'),
-(4, 'browse_media', NULL, '2020-08-18 19:42:56', '2020-08-18 19:42:56'),
-(5, 'browse_compass', NULL, '2020-08-18 19:42:56', '2020-08-18 19:42:56'),
-(6, 'browse_menus', 'menus', '2020-08-18 19:42:56', '2020-08-18 19:42:56'),
-(7, 'read_menus', 'menus', '2020-08-18 19:42:56', '2020-08-18 19:42:56'),
-(8, 'edit_menus', 'menus', '2020-08-18 19:42:56', '2020-08-18 19:42:56'),
-(9, 'add_menus', 'menus', '2020-08-18 19:42:56', '2020-08-18 19:42:56'),
-(10, 'delete_menus', 'menus', '2020-08-18 19:42:56', '2020-08-18 19:42:56'),
-(11, 'browse_roles', 'roles', '2020-08-18 19:42:56', '2020-08-18 19:42:56'),
-(12, 'read_roles', 'roles', '2020-08-18 19:42:56', '2020-08-18 19:42:56'),
-(13, 'edit_roles', 'roles', '2020-08-18 19:42:56', '2020-08-18 19:42:56'),
-(14, 'add_roles', 'roles', '2020-08-18 19:42:56', '2020-08-18 19:42:56'),
-(15, 'delete_roles', 'roles', '2020-08-18 19:42:56', '2020-08-18 19:42:56'),
-(16, 'browse_users', 'users', '2020-08-18 19:42:56', '2020-08-18 19:42:56'),
-(17, 'read_users', 'users', '2020-08-18 19:42:56', '2020-08-18 19:42:56'),
-(18, 'edit_users', 'users', '2020-08-18 19:42:56', '2020-08-18 19:42:56'),
-(19, 'add_users', 'users', '2020-08-18 19:42:56', '2020-08-18 19:42:56'),
-(20, 'delete_users', 'users', '2020-08-18 19:42:56', '2020-08-18 19:42:56'),
-(21, 'browse_settings', 'settings', '2020-08-18 19:42:56', '2020-08-18 19:42:56'),
-(22, 'read_settings', 'settings', '2020-08-18 19:42:56', '2020-08-18 19:42:56'),
-(23, 'edit_settings', 'settings', '2020-08-18 19:42:56', '2020-08-18 19:42:56'),
-(24, 'add_settings', 'settings', '2020-08-18 19:42:56', '2020-08-18 19:42:56'),
-(25, 'delete_settings', 'settings', '2020-08-18 19:42:56', '2020-08-18 19:42:56'),
-(26, 'browse_hooks', NULL, '2020-08-18 19:42:56', '2020-08-18 19:42:56'),
-(27, 'browse_admins', 'admins', '2020-08-18 19:48:31', '2020-08-18 19:48:31'),
-(28, 'read_admins', 'admins', '2020-08-18 19:48:31', '2020-08-18 19:48:31'),
-(29, 'edit_admins', 'admins', '2020-08-18 19:48:31', '2020-08-18 19:48:31'),
-(30, 'add_admins', 'admins', '2020-08-18 19:48:31', '2020-08-18 19:48:31'),
-(31, 'delete_admins', 'admins', '2020-08-18 19:48:31', '2020-08-18 19:48:31');
+(1, 'browse_admin', NULL, '2020-08-30 21:44:29', '2020-08-30 21:44:29'),
+(2, 'browse_bread', NULL, '2020-08-30 21:44:29', '2020-08-30 21:44:29'),
+(3, 'browse_database', NULL, '2020-08-30 21:44:29', '2020-08-30 21:44:29'),
+(4, 'browse_media', NULL, '2020-08-30 21:44:29', '2020-08-30 21:44:29'),
+(5, 'browse_compass', NULL, '2020-08-30 21:44:29', '2020-08-30 21:44:29'),
+(6, 'browse_menus', 'menus', '2020-08-30 21:44:29', '2020-08-30 21:44:29'),
+(7, 'read_menus', 'menus', '2020-08-30 21:44:29', '2020-08-30 21:44:29'),
+(8, 'edit_menus', 'menus', '2020-08-30 21:44:29', '2020-08-30 21:44:29'),
+(9, 'add_menus', 'menus', '2020-08-30 21:44:29', '2020-08-30 21:44:29'),
+(10, 'delete_menus', 'menus', '2020-08-30 21:44:29', '2020-08-30 21:44:29'),
+(11, 'browse_roles', 'roles', '2020-08-30 21:44:29', '2020-08-30 21:44:29'),
+(12, 'read_roles', 'roles', '2020-08-30 21:44:29', '2020-08-30 21:44:29'),
+(13, 'edit_roles', 'roles', '2020-08-30 21:44:29', '2020-08-30 21:44:29'),
+(14, 'add_roles', 'roles', '2020-08-30 21:44:29', '2020-08-30 21:44:29'),
+(15, 'delete_roles', 'roles', '2020-08-30 21:44:29', '2020-08-30 21:44:29'),
+(16, 'browse_users', 'users', '2020-08-30 21:44:29', '2020-08-30 21:44:29'),
+(17, 'read_users', 'users', '2020-08-30 21:44:29', '2020-08-30 21:44:29'),
+(18, 'edit_users', 'users', '2020-08-30 21:44:29', '2020-08-30 21:44:29'),
+(19, 'add_users', 'users', '2020-08-30 21:44:29', '2020-08-30 21:44:29'),
+(20, 'delete_users', 'users', '2020-08-30 21:44:29', '2020-08-30 21:44:29'),
+(21, 'browse_settings', 'settings', '2020-08-30 21:44:29', '2020-08-30 21:44:29'),
+(22, 'read_settings', 'settings', '2020-08-30 21:44:29', '2020-08-30 21:44:29'),
+(23, 'edit_settings', 'settings', '2020-08-30 21:44:29', '2020-08-30 21:44:29'),
+(24, 'add_settings', 'settings', '2020-08-30 21:44:29', '2020-08-30 21:44:29'),
+(25, 'delete_settings', 'settings', '2020-08-30 21:44:29', '2020-08-30 21:44:29'),
+(26, 'browse_hooks', NULL, '2020-08-30 21:44:29', '2020-08-30 21:44:29'),
+(27, 'browse_admins', 'admins', '2020-08-30 21:50:33', '2020-08-30 21:50:33'),
+(28, 'read_admins', 'admins', '2020-08-30 21:50:33', '2020-08-30 21:50:33'),
+(29, 'edit_admins', 'admins', '2020-08-30 21:50:33', '2020-08-30 21:50:33'),
+(30, 'add_admins', 'admins', '2020-08-30 21:50:33', '2020-08-30 21:50:33'),
+(31, 'delete_admins', 'admins', '2020-08-30 21:50:33', '2020-08-30 21:50:33');
 
 -- --------------------------------------------------------
 
@@ -329,7 +326,6 @@ CREATE TABLE `permission_role` (
 
 INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
 (1, 1),
-(1, 3),
 (2, 1),
 (3, 1),
 (4, 1),
@@ -350,15 +346,10 @@ INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
 (19, 1),
 (20, 1),
 (21, 1),
-(21, 3),
 (22, 1),
-(22, 3),
 (23, 1),
-(23, 3),
 (24, 1),
-(24, 3),
 (25, 1),
-(25, 3),
 (26, 1),
 (27, 1),
 (28, 1),
@@ -403,9 +394,8 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`, `display_name`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'Administrator', '2020-08-18 19:42:56', '2020-08-18 19:42:56'),
-(2, 'user', 'Normal User', '2020-08-18 19:42:56', '2020-08-18 19:42:56'),
-(3, 'editor', 'Editor', '2020-08-18 20:04:07', '2020-08-18 20:04:07');
+(1, 'admin', 'Administrator', '2020-08-30 21:44:29', '2020-08-30 21:44:29'),
+(2, 'user', 'Normal User', '2020-08-30 21:44:29', '2020-08-30 21:44:29');
 
 -- --------------------------------------------------------
 
@@ -465,16 +455,29 @@ CREATE TABLE `translations` (
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(340) NOT NULL,
-  `email` varchar(340) NOT NULL,
-  `avatar` varchar(340) DEFAULT 'users/default.png',
+  `role_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `avatar` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(340) NOT NULL,
-  `remember_token` varchar(133) DEFAULT NULL,
-  `notify_token` varchar(334) DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `notify_token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `settings` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_roles`
+--
+
+CREATE TABLE `user_roles` (
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `role_id` bigint(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Indexes for dumped tables
@@ -578,7 +581,16 @@ ALTER TABLE `translations`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `users_email_unique` (`email`);
+  ADD UNIQUE KEY `users_email_unique` (`email`),
+  ADD KEY `users_role_id_foreign` (`role_id`);
+
+--
+-- Indexes for table `user_roles`
+--
+ALTER TABLE `user_roles`
+  ADD PRIMARY KEY (`role_id`,`user_id`) USING BTREE,
+  ADD UNIQUE KEY `user_roles_user_id_index` (`user_id`),
+  ADD KEY `user_roles_role_id_index` (`role_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -588,7 +600,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `data_rows`
@@ -642,7 +654,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `settings`
@@ -660,7 +672,7 @@ ALTER TABLE `translations`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
@@ -690,6 +702,18 @@ ALTER TABLE `menu_items`
 ALTER TABLE `permission_role`
   ADD CONSTRAINT `permission_role_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `permission_role_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `users_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`);
+
+--
+-- Constraints for table `user_roles`
+--
+ALTER TABLE `user_roles`
+  ADD CONSTRAINT `user_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
