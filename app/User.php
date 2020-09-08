@@ -6,11 +6,15 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Overtrue\LaravelFollow\Followable;
+use Overtrue\LaravelSubscribe\Traits\Subscriber;
 
 class User extends \TCG\Voyager\Models\User
 {
     use Notifiable;
     use HasApiTokens;
+    use Subscriber;
+    use Followable;
 
     /**
      * The attributes that are mass assignable.
@@ -42,5 +46,10 @@ class User extends \TCG\Voyager\Models\User
     public function chats()
     {
         return $this->hasMany(Chat::class, 'receiver_id');
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
     }
 }

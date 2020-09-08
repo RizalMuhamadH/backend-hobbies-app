@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGeolocationsTable extends Migration
+class CreatePostsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,16 @@ class CreateGeolocationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('geolocations', function (Blueprint $table) {
+        Schema::create('posts', function (Blueprint $table) {
             $table->id();
+            $table->text('caption');
+            $table->unsignedBigInteger('places_id');
+            // $table->string('type');
+            // $table->string('path');
             $table->unsignedBigInteger('user_id');
-            $table->string('status')->default('offline');
-            $table->boolean('shared')->default(false);
-            $table->double('lat')->nullable();
-            $table->double('lng')->nullable();
             $table->timestamps();
 
+            $table->foreign('places_id')->references('id')->on('places');
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
@@ -33,6 +34,6 @@ class CreateGeolocationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('geolocations');
+        Schema::dropIfExists('posts');
     }
 }

@@ -4,11 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Chat;
 use App\Http\Controllers\Controller;
-use App\Message;
 use App\User;
 use Illuminate\Http\Request;
 
-class MessagesController extends Controller
+class ChatsController extends Controller
 {
     /**
      * Display a listing of the resource.
