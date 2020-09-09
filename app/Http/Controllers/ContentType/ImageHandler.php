@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use TCG\Voyager\Http\Controllers\ContentTypes\BaseType;
 use Illuminate\Support\Str;
@@ -10,16 +11,16 @@ class ImageHandler extends BaseType
 {
     public function handle()
     {
-        if ($this->request->hasFile($this->row->field)) {
-            $file = $this->request->file($this->row->field);
+        if ($this->request->hasFile($this->row)) {
+            $file = $this->request->file($this->row);
 
-            $path = $this->slug . DIRECTORY_SEPARATOR . date('FY') . DIRECTORY_SEPARATOR;
+            $path = $this->slug . DIRECTORY_SEPARATOR . $this->request->id . DIRECTORY_SEPARATOR;
 
             $filename = $this->generateFileName($file, $path);
 
             $image = InterventionImage::make($file)->orientate();
 
-            $fullPath = $path . $filename . '.' . $file->getClientOriginalExtension();
+            $fullPath = $path . Carbon::now()->timestamp . '_' . uniqid() . '_' . $filename . '.' . $file->getClientOriginalExtension();
 
             $resize_width = null;
             $resize_height = null;
