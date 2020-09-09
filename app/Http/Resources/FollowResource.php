@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserResource extends JsonResource
+class FollowResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,7 +19,10 @@ class UserResource extends JsonResource
             'name'          => $this->name,
             'email'         => $this->email,
             'avatar'        => $this->avatar,
-            'notify_token'  => $this->notify_token
+            'notify_token'  => $this->notify_token,
+            'pivot'         => [
+                'accepted_at'   => $this->pivot->accepted_at
+            ]
         ];
     }
 }

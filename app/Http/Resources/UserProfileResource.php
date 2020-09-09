@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserResource extends JsonResource
+class UserProfileResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,7 +19,10 @@ class UserResource extends JsonResource
             'name'          => $this->name,
             'email'         => $this->email,
             'avatar'        => $this->avatar,
-            'notify_token'  => $this->notify_token
+            'notify_token'  => $this->notify_token,
+            'tokens'        => new UserTokenResource($this->tokens()->first()),
+            'followings'     => FollowResource::collection($this->followings),
+            'followers'     => FollowResource::collection($this->followers)
         ];
     }
 }

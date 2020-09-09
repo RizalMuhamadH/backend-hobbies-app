@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserProfileResource;
 use App\Http\Resources\UserResource;
 use App\User;
 use Carbon\Carbon;
@@ -72,7 +73,26 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        if ($user) {
+            return (new UserProfileResource($user))->additional(['meta' => [
+                'code' => 200,
+                'message' => 'Data found'
+            ]])->response();
+        }
+
+        $response = [
+            'data' => null,
+            'meta' => [
+                'code' => 500,
+                'message' => 'Data found'
+            ]
+        ];
+
+        return response($response, $response['meta']['code']);
+
+        // return "not found";
+
     }
 
     /**
@@ -108,18 +128,21 @@ class UserController extends Controller
         if ($user) {
             $user->update(["name" => $request->name]);
 
-            $response = [
+            return (new UserProfileResource($user))->additional(['meta' => [
                 'code' => 200,
-                'data' => new UserResource($user)
-            ];
-        } else {
-            $response = [
-                'code' => 500,
-                'data' => null
-            ];
+                'message' => 'Data found'
+            ]])->response();
         }
 
-        return response($response, $response->code);
+        $response = [
+            'data' => null,
+            'meta' => [
+                'code' => 500,
+                'message' => 'Data found'
+            ]
+        ];
+
+        return response($response, $response['meta']['code']);
     }
 
     public function updatePassword(Request $request, $id)
@@ -129,18 +152,21 @@ class UserController extends Controller
         if ($user) {
             $user->update(["password" => bcrypt($request->password)]);
 
-            $response = [
+            return (new UserProfileResource($user))->additional(['meta' => [
                 'code' => 200,
-                'data' => new UserResource($user)
-            ];
-        } else {
-            $response = [
-                'code' => 500,
-                'data' => null
-            ];
+                'message' => 'Data found'
+            ]])->response();
         }
 
-        return response($response, $response->code);
+        $response = [
+            'data' => null,
+            'meta' => [
+                'code' => 500,
+                'message' => 'Data found'
+            ]
+        ];
+
+        return response($response, $response['meta']['code']);
     }
 
     public function updateAvatar(Request $request, $id)
@@ -160,18 +186,21 @@ class UserController extends Controller
 
             $user->update(["avatar" => "users/" . $fileName]);
 
-            $response = [
+            return (new UserProfileResource($user))->additional(['meta' => [
                 'code' => 200,
-                'data' => new UserResource($user)
-            ];
-        } else {
-            $response = [
-                'code' => 500,
-                'data' => null
-            ];
+                'message' => 'Data found'
+            ]])->response();
         }
 
-        return response($response, $response->code);
+        $response = [
+            'data' => null,
+            'meta' => [
+                'code' => 500,
+                'message' => 'Data found'
+            ]
+        ];
+
+        return response($response, $response['meta']['code']);
     }
 
     /**
