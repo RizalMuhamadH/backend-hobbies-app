@@ -19,3 +19,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::post('login', 'Api\LoginController@login');
 Route::post('register', 'Api\RegisterController@store');
+Route::get('user/{id}', 'Api\UserController@show');
+Route::put('user/name/{id}', 'Api\UserController@updateName');
+Route::put('user/password/{id}', 'Api\UserController@updatePassword');
+Route::put('user/avatar/{id}', 'Api\UserController@updateAvatar');
+Route::post('post', 'Api\PostController@store');

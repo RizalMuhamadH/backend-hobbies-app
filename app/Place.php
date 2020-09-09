@@ -6,5 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Place extends Model
 {
-    //
+
+    protected $guarded = [];
+
+    public function posts()
+    {
+        return $this->morphedByMany(Post::class, 'placeable');
+    }
 }

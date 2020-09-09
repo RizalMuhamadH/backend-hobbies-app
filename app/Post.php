@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
+    protected $fillable = ['caption', 'user_id'];
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -24,5 +26,10 @@ class Post extends Model
     public function videos()
     {
         return $this->morphMany(Video::class, 'videoable');
+    }
+
+    public function places()
+    {
+        return $this->morphToMany(Place::class, 'placeable');
     }
 }
