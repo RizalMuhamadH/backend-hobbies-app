@@ -15,7 +15,7 @@ class Post extends Model
 
     public function comments()
     {
-        return $this->morphMany(Comment::class, 'commentable')->whereNull('parent_id');
+        return $this->morphMany(Comment::class, 'commentable')->whereNull('parent_id')->orderBy('created_at', 'desc');
     }
 
     public function images()
@@ -28,7 +28,7 @@ class Post extends Model
         return $this->morphMany(Video::class, 'videoable');
     }
 
-    public function places()
+    public function place()
     {
         return $this->morphToMany(Place::class, 'placeable');
     }

@@ -85,7 +85,7 @@ class UserController extends Controller
             'data' => null,
             'meta' => [
                 'code' => 500,
-                'message' => 'Data found'
+                'message' => 'Data not found'
             ]
         ];
 
@@ -138,7 +138,7 @@ class UserController extends Controller
             'data' => null,
             'meta' => [
                 'code' => 500,
-                'message' => 'Data found'
+                'message' => 'Data not found'
             ]
         ];
 
@@ -162,7 +162,7 @@ class UserController extends Controller
             'data' => null,
             'meta' => [
                 'code' => 500,
-                'message' => 'Data found'
+                'message' => 'Data not found'
             ]
         ];
 
@@ -196,7 +196,7 @@ class UserController extends Controller
             'data' => null,
             'meta' => [
                 'code' => 500,
-                'message' => 'Data found'
+                'message' => 'Data not found'
             ]
         ];
 

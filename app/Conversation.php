@@ -8,16 +8,15 @@ use Illuminate\Support\Facades\Request;
 
 class Conversation extends Model
 {
-    public function store(Request $request)
+    protected $fillable = ['message', 'user_id', 'group_id'];
+
+    public function user()
     {
-        $conversation = Conversation::create([
-            'message' => $request('message'),
-            'group_id' => $request('group_id'),
-            'user_id' => $request->user_id,
-        ]);
+        return $this->belongsTo(User::class);
+    }
 
-        broadcast(new NewMessage($conversation))->toOthers();
-
-        return $conversation->load('user');
+    public function group()
+    {
+        return $this->belongsTo(Group::class);
     }
 }

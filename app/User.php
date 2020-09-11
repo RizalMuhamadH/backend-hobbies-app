@@ -52,4 +52,9 @@ class User extends \TCG\Voyager\Models\User
     {
         return $this->hasMany(Post::class);
     }
+
+    public function groups()
+    {
+        return $this->belongsToMany(Group::class)->withTimestamps();
+    }
 }
