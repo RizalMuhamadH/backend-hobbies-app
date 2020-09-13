@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Traits\HasGroups;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -55,6 +56,12 @@ class User extends \TCG\Voyager\Models\User
 
     public function groups()
     {
-        return $this->belongsToMany(Group::class)->withTimestamps();
+        return $this->belongsToMany(Group::class, 'group_user');
     }
+
+    public function ownerGroups()
+    {
+        return $this->hasMany(Group::class);
+    }
+
 }
