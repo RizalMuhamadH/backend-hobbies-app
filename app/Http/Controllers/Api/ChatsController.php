@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Chat;
+use App\Events\MessageSent;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
@@ -43,7 +44,7 @@ class ChatsController extends Controller
             'message'     => $request->input('message'),
         ]);
 
-        // broadcast(new MessageSent($message));
+        broadcast(new MessageSent($message));
 
         return $message->fresh();
     }
