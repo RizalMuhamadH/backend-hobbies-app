@@ -16,6 +16,11 @@ class CreateGroupsTable extends Migration
         Schema::create('groups', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->text('description');
+            $table->string('image')->nullable();
+            $table->boolean('private')->unsigned()->default(false);
+            $table->unsignedBigInteger('user_id');
+            $table->text('settings')->nullable();
             $table->timestamps();
         });
     }
