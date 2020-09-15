@@ -40,4 +40,17 @@ Route::get('group/{groupId}/requests', 'Api\GroupController@requestGroups');
 Route::post('group/{groupId}/request', 'Api\GroupController@requestJoinGroup');
 Route::post('group/{groupId}/request/accept', 'Api\GroupController@acceptJoinGroup');
 Route::post('group/{groupId}/request/decline', 'Api\GroupController@decllineJoinGroup');
+
+
+Route::post('group/{groupId}/conversation', 'Api\ConversationController@store');
+
+Route::get('events', 'Api\EventController@index');
+Route::get('events/{id}', 'Api\EventController@show');
+Route::get('events/category', 'Api\EventController@categories');
+Route::get('events/category/{catId}', 'Api\EventController@category');
+
+Route::get('news', 'Api\EventController@index');
+Route::get('news/{id}', 'Api\EventController@show');
+Route::get('news/category', 'Api\EventController@categories');
+Route::get('news/category/{catId}', 'Api\EventController@category');
 // Route::get('comment', 'Api\CommentController@index');
