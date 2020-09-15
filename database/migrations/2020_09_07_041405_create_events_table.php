@@ -20,12 +20,12 @@ class CreateEventsTable extends Migration
             $table->text('body');
             $table->dateTime('start');
             $table->dateTime('end');
-            $table->unsignedBigInteger('event_categories_id');
+            $table->unsignedBigInteger('event_category_id');
             $table->unsignedBigInteger('admins_id');
             $table->timestamps();
 
-            $table->foreign('event_categories_id')->references('id')->on('event_categories');
-            $table->foreign('admins_id')->references('id')->on('admins');
+            // $table->foreign('event_category_id')->references('id')->on('event_categories');
+            // $table->foreign('admin_id')->references('id')->on('admins');
         });
     }
 

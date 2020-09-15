@@ -18,12 +18,12 @@ class CreateNewsTable extends Migration
             $table->string('title');
             $table->string('description');
             $table->text('body');
-            $table->unsignedBigInteger('news_categories_id');
-            $table->unsignedBigInteger('admins_id');
+            $table->unsignedBigInteger('news_category_id');
+            $table->unsignedBigInteger('admin_id');
             $table->timestamps();
 
-            $table->foreign('news_categories_id')->references('id')->on('news_categories');
-            $table->foreign('admins_id')->references('id')->on('admins');
+            $table->foreign('news_category_id')->references('id')->on('news_category');
+            $table->foreign('admin_id')->references('id')->on('admins');
         });
     }
 
