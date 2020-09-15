@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Geolocation;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\GeolocationResource;
 use App\Http\Resources\UserProfileResource;
 use App\Http\Resources\UserResource;
 use App\User;
@@ -212,6 +214,63 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getGeolocation(Request $request)
+    {
+        $geo = Geolocation::whereIn('id', json_decode($request->users))->orderBy('created_at', 'desc')->get();
+
+        if ($geo != '[]') return GeolocationResource::collection($geo)->additional(['meta' => [
+            'code' => 200,
+            'message' => 'Data found'
+        ]])->response();
+
+        $response = [
+            'data' => null,
+            'meta' => [
+                'code' => 500,
+                'message' => 'Data not found'
+            ]
+        ];
+
+        return response($response, $response['meta']['code']);
+    }
+
+    public function setGeolocation(Request $request)
+    {
+        $user = User::find($request->id);
+
+        if ($user) {
+            if ($user->geolocation) {
+                $user->geolocation()->update([
+                    'status'        => $request->status,
+                    'shared'        => $request->shared,
+                    'lat'           => $request->lat,
+                    'lng'           => $request->lng
+                ]);
+            } else {
+                $user->geolocation()->create([
+                    'status'        => $request->status,
+                    'shared'        => $request->shared,
+                    'lat'           => $request->lat,
+                    'lng'           => $request->lng
+                ]);
+            }
+            return GeolocationResource::collection($user->geolocation)->additional(['meta' => [
+                'code' => 200,
+                'message' => 'Data found'
+            ]])->response();
+        }
+
+        $response = [
+            'data' => null,
+            'meta' => [
+                'code' => 500,
+                'message' => 'Data not found'
+            ]
+        ];
+
+        return response($response, $response['meta']['code']);
     }
 }
 

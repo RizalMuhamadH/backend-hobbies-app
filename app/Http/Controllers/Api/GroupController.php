@@ -9,54 +9,56 @@ use App\Http\Resources\GroupResource;
 use App\Http\Resources\UserResource;
 use App\User;
 use Illuminate\Http\Request;
-use ImageHandler;
+use App\Http\Controllers\ContentTypes\ImageHandler;
 
 class GroupController extends Controller
 {
     public function store(Request $request)
     {
-        $path = '';
-        if ($this->request->hasFile('file_image')) {
-            $path = (new ImageHandler($request, 'images', 'file_image', Image::class))->handle();
-
-        }
-
         $group = Group::create([
             'name' => $request->name,
             'description' => $request->description,
             'user_id' => $request->user_id,
-            'image'   => $path,
             'private' => $request->private,
             'settings' => $request->settings
         ]);
+
+
+        if ($request->hasFile('file_image')) {
+            $path = (new ImageHandler($request, 'images', 'file_image', Image::class))->handle();
+            $group->image()->create(['path' => $path]);
+        }
 
         $group->addMembers(json_decode($request->users, true));
 
         broadcast(new GroupCreated($group))->toOthers();
 
         return $group;
-
     }
 
     public function update(Request $request, $groupId)
     {
         $group = Group::find($groupId);
 
-        if($group){
-            $path = $group->image;
-            if ($this->request->hasFile('file_image')) {
-                $path = (new ImageHandler($request, 'images', 'file_image', Image::class))->handle();
-
-            }
+        if ($group) {
 
             $group->update([
                 'name' => $request->name,
                 'description' => $request->description,
                 'user_id' => $request->user_id,
-                'image'   => $path,
                 'private' => $request->private,
                 'settings' => $request->settings
             ]);
+
+            if ($request->hasFile('file_image')) {
+                $path = (new ImageHandler($request, 'images', 'file_image', Image::class))->handle();
+
+                if ($group->image) {
+                    $group->image()->update(['path' => $path]);
+                } else {
+                    $group->image()->create(['path' => $path]);
+                }
+            }
         }
 
         $response = [
@@ -74,27 +76,27 @@ class GroupController extends Controller
     {
         $group = Group::find($groupId);
 
-        if($group) return UserResource::collection($group->users)->additional(['meta' => [
-                'code' => 200,
-                'message' => 'Data found'
-            ]])->response();
+        if ($group) return UserResource::collection($group->users)->additional(['meta' => [
+            'code' => 200,
+            'message' => 'Data found'
+        ]])->response();
 
-            $response = [
-                'data' => null,
-                'meta' => [
-                    'code' => 500,
-                    'message' => 'Data not found'
-                ]
-            ];
+        $response = [
+            'data' => null,
+            'meta' => [
+                'code' => 500,
+                'message' => 'Data not found'
+            ]
+        ];
 
-            return response($response, $response['meta']['code']);
+        return response($response, $response['meta']['code']);
     }
 
     public function addMembers(Request $request, $groupId)
     {
         $group = Group::find($groupId);
 
-        if($group) {
+        if ($group) {
             $group->addMembers(json_decode($request->users));
 
             return UserResource::collection($group->users)->additional(['meta' => [
@@ -126,7 +128,7 @@ class GroupController extends Controller
 
         $group = Group::find($groupId);
 
-        if($group) {
+        if ($group) {
             $group->leave(json_decode($request->users));
 
             $response = [
@@ -145,7 +147,7 @@ class GroupController extends Controller
     {
         $user = User::find($userId);
 
-        if($user) return GroupResource::collection($user->ownerGroups)->additional(['meta' => [
+        if ($user) return GroupResource::collection($user->ownerGroups)->additional(['meta' => [
             'code' => 200,
             'message' => 'Data found'
         ]])->response();
@@ -173,7 +175,7 @@ class GroupController extends Controller
 
         $group = Group::find($groupId);
 
-        if($group){
+        if ($group) {
             $group->request($request->user_id);
 
             $response = [
@@ -199,7 +201,7 @@ class GroupController extends Controller
 
         $group = Group::find($groupId);
 
-        if($group){
+        if ($group) {
             $group->acceptRequest($request->user_id);
 
             $response = [
@@ -226,7 +228,7 @@ class GroupController extends Controller
 
         $group = Group::find($groupId);
 
-        if($group){
+        if ($group) {
             $group->declineRequest($request->user_id);
 
             $response = [
@@ -244,7 +246,7 @@ class GroupController extends Controller
     {
         $group = Group::find($groupId);
 
-        if($group) return UserResource::collection($group->requests)->additional(['meta' => [
+        if ($group) return UserResource::collection($group->requests)->additional(['meta' => [
             'code' => 200,
             'message' => 'Data found'
         ]])->response();

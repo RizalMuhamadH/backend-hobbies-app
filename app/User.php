@@ -64,4 +64,8 @@ class User extends \TCG\Voyager\Models\User
         return $this->hasMany(Group::class);
     }
 
+    public function geolocation()
+    {
+        return $this->hasOne(Geolocation::class);
+    }
 }

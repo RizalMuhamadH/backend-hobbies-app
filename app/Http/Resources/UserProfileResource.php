@@ -21,7 +21,7 @@ class UserProfileResource extends JsonResource
             'avatar'        => $this->avatar,
             'notify_token'  => $this->notify_token,
             'tokens'        => new UserTokenResource($this->tokens()->first()),
-            'followings'     => FollowResource::collection($this->followings),
+            'followings'    => FollowResource::collection($this->followings),
             'followers'     => FollowResource::collection($this->followers)
         ];
     }

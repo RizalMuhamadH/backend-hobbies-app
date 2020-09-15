@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\ContentTypes\MultipleFileHandler;
 use App\Http\Controllers\ContentTypes\MultipleImageHandler;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PostCommentResource;
@@ -10,6 +11,7 @@ use App\Image;
 use App\Place;
 use App\Post;
 use App\User;
+use App\Video;
 use Illuminate\Http\Request;
 use ImageHandler;
 
@@ -47,17 +49,25 @@ class PostController extends Controller
             ]);
         }
 
-        if ($this->request->hasFile('file_image')) {
+        if ($request->hasFile('file_image')) {
             $path = (new ImageHandler($request, 'images', 'file_image', Image::class))->handle();
 
             $post->images()->create(['path' => $path]);
         }
 
-        if ($this->request->file('file_images')) {
+        if ($request->hasFile('file_images')) {
             $paths = (new MultipleImageHandler($request, 'images', 'file_images', Image::class))->handle();
             $arr = json_decode($paths);
             foreach ($arr as $item) {
                 $post->images()->create(['path' => $item]);
+            }
+        }
+
+        if ($request->hasFile('file_videos')) {
+            $paths = (new MultipleFileHandler($request, 'videos', 'file_videos', Video::class))->handle();
+            $arr = json_decode($paths);
+            foreach ($arr as $item) {
+                $post->videos()->create(['path' => $item]);
             }
         }
 
