@@ -20,9 +20,14 @@ class CreateNewsTable extends Migration
             $table->text('body');
             $table->unsignedBigInteger('news_category_id');
             $table->unsignedBigInteger('admin_id');
+            $table->string('status')->default('DRAFT');
+            // $table->string('slug');
+            // $table->string('meta_description');
+            // $table->string('meta_keywords');
+            // $table->string('seo_title');
             $table->timestamps();
 
-            $table->foreign('news_category_id')->references('id')->on('news_category');
+            $table->foreign('news_category_id')->references('id')->on('news_categories');
             $table->foreign('admin_id')->references('id')->on('admins');
         });
     }

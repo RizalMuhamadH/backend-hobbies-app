@@ -20,6 +20,11 @@ class CreateEventsTable extends Migration
             $table->text('body');
             $table->dateTime('start');
             $table->dateTime('end');
+            $table->string('status')->default('DRAFT');
+            // $table->string('slug');
+            // $table->string('meta_description');
+            // $table->string('meta_keywords');
+            // $table->string('seo_title');
             $table->unsignedBigInteger('event_category_id');
             $table->unsignedBigInteger('admins_id');
             $table->timestamps();
