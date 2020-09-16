@@ -45,6 +45,7 @@ class MultipleFileHandler extends BaseType
      */
     protected function generatePath()
     {
+        $id = '';
         if ($this->request->id) {
             $id = $this->request->id . DIRECTORY_SEPARATOR;
         }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\ContentTypes\ImageHandler;
 use App\Http\Controllers\ContentTypes\MultipleFileHandler;
 use App\Http\Controllers\ContentTypes\MultipleImageHandler;
 use App\Http\Controllers\Controller;
@@ -13,7 +14,6 @@ use App\Post;
 use App\User;
 use App\Video;
 use Illuminate\Http\Request;
-use ImageHandler;
 
 class PostController extends Controller
 {

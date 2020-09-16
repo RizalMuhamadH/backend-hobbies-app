@@ -47,6 +47,7 @@ class MultipleImageHandler extends BaseType
 
             $resize_quality = intval($this->options->quality ?? 75);
 
+            $id = '';
             if ($this->request->id) {
                 $id = $this->request->id . DIRECTORY_SEPARATOR;
             }

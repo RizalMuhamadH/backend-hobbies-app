@@ -16,6 +16,7 @@ class ImageHandler extends BaseType
         if ($this->request->hasFile($this->row)) {
             $file = $this->request->file($this->row);
 
+            $id = '';
             if ($this->request->id) {
                 $id = $this->request->id . DIRECTORY_SEPARATOR;
             }
