@@ -18,7 +18,8 @@ class NewsWithoutBodyResource extends JsonResource
             'id'              => $this->id,
             'title'           => $this->title,
             'description'     => $this->description,
-            'category'        => new NewsCategoryResource($this->whenLoaded('newsCategory')),
+            $this->whenLoaded('newsCategory') == null ? '' :
+                'category'        => new NewsCategoryResource($this->whenLoaded('newsCategory')),
             'image'           => new ImageResource($this->image),
             'author'          => new AdminResource($this->author),
         ];

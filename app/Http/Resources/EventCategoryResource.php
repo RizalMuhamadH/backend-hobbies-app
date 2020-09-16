@@ -17,7 +17,8 @@ class EventCategoryResource extends JsonResource
         return [
             'id'       => $this->id,
             'name'     => $this->name,
-            'events'   => EventWithoutBodyResource::collection($this->whenLoaded('events'))
+            $this->whenLoaded('events') == null ? '' :
+                'events'   => EventWithoutBodyResource::collection($this->whenLoaded('events'))
         ];
     }
 }

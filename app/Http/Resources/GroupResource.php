@@ -21,7 +21,8 @@ class GroupResource extends JsonResource
             'image'        => $this->image,
             'private'      => $this->private,
             'settings'     => $this->settings,
-            'user'         => new UserResource($this->whenLoaded('user')),
+            $this->whenLoaded('user') == null ? '' :
+                'user'         => new UserResource($this->whenLoaded('user')),
         ];
     }
 }

@@ -19,7 +19,8 @@ class CommentResource extends JsonResource
             'parent_id'      => $this->parent_id,
             'user'           => new UserResource($this->user),
             'comment'        => $this->comment,
-            'replies'        => CommentResource::collection($this->whenLoaded('replies')),
+            $this->whenLoaded('replies') == null ? '' :
+                'replies'        => CommentResource::collection($this->whenLoaded('replies')),
             'created_at'     => $this->created_at
         ];
     }

@@ -20,7 +20,8 @@ class EventWithoutBodyResource extends JsonResource
             'description'     => $this->description,
             'start'           => $this->start,
             'end'             => $this->end,
-            'category'        => new EventCategoryResource($this->whenLoaded('eventCategory')),
+            $this->whenLoaded('eventCategory') == null ? '' :
+                'category'        => new EventCategoryResource($this->whenLoaded('eventCategory')),
             'image'           => new ImageResource($this->image),
             'author'          => new AdminResource($this->author)
         ];

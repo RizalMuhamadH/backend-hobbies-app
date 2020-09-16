@@ -17,7 +17,8 @@ class NewsCategoryResource extends JsonResource
         return [
             'id'       => $this->id,
             'name'     => $this->name,
-            'news'     => NewsWithoutBodyResource::collection($this->whenLoaded('news'))
+            $this->whenLoaded('news') == null ? '' :
+                'news'     => NewsWithoutBodyResource::collection($this->whenLoaded('news'))
         ];
     }
 }
