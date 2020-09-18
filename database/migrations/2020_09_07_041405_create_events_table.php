@@ -26,11 +26,11 @@ class CreateEventsTable extends Migration
             // $table->string('meta_keywords');
             // $table->string('seo_title');
             $table->unsignedBigInteger('event_category_id');
-            $table->unsignedBigInteger('admins_id');
+            $table->unsignedBigInteger('admin_id');
             $table->timestamps();
 
-            // $table->foreign('event_category_id')->references('id')->on('event_categories');
-            // $table->foreign('admin_id')->references('id')->on('admins');
+            $table->foreign('event_category_id')->references('id')->on('event_categories');
+            $table->foreign('admin_id')->references('id')->on('admins');
         });
     }
 
