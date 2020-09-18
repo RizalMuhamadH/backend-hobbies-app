@@ -68,7 +68,7 @@ $add = is_null($dataTypeContent->getKey());
 @section('content')
 <div class="page-content container-fluid">
     <form class="form-edit-add" role="form"
-        action="@if($edit){{ route('voyager.news.update', $dataTypeContent->id) }}@else{{ route('voyager.news.store') }}@endif"
+        action="@if($edit){{ route('voyager.events.update', $dataTypeContent->id) }}@else{{ route('voyager.events.store') }}@endif"
         method="POST" enctype="multipart/form-data">
         <!-- PUT Method if we are editing -->
         @if($edit)
@@ -93,7 +93,7 @@ $add = is_null($dataTypeContent->getKey());
                     <div class="panel-heading">
                         <h3 class="panel-title">
                             <i class="voyager-character"></i> Title
-                            <span class="panel-desc"> The title for your news</span>
+                            <span class="panel-desc"> The title for your events</span>
                         </h3>
                         <div class="panel-actions">
                             <a class="panel-action voyager-angle-down" data-toggle="panel-collapse"
