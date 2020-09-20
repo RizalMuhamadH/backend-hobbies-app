@@ -57,25 +57,10 @@ class UserController extends Controller
         //
     }
 
-    public function profile(User $user)
+    public function profile(Request $request)
     {
-        $response = [
-            'code' => 200,
-            'data' => new UserResource($user)
-        ];
 
-        return response($response, 200);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $user = User::find($id);
+        $user = User::where('id', $request->id)->first();
         if ($user) {
             return (new UserProfileResource($user))->additional(['meta' => [
                 'code' => 200,
@@ -92,8 +77,31 @@ class UserController extends Controller
         ];
 
         return response($response, $response['meta']['code']);
+    }
 
-        // return "not found";
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $user = User::find($id);
+        if($user) return (new UserResource($user))->additional(['meta' => [
+            'code' => 200,
+            'message' => 'Data found'
+        ]])->response();
+
+        $response = [
+            'data' => null,
+            'meta' => [
+                'code' => 400,
+                'message' => 'Data not found'
+            ]
+        ];
+
+        return response($response, $response['meta']['code']);
 
     }
 

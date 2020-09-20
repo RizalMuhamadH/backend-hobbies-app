@@ -5,26 +5,46 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
     public function store(Request $request)
     {
-        $this->validate($request, [
+        // $this->validate($request, [
+        //     'name' => 'required|string|max:255',
+        //     'email' => 'required|string|email|max:255|unique:users',
+        //     'password' => 'required|string|min:6',
+            // 'notify_token' => 'required|string',
+        // ]);
+
+        $validate = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',
-            'notify_token' => 'required|string',
         ]);
+
+        if($validate->fails()){
+            return response([
+                'meta' => [
+                    'code' => 400,
+                    'message' => $validate->errors()->first()
+                ]
+            ], 200);
+        }
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'notify_token' => $request->notify_token,
 
         ]);
 
-        return $user;
+        return response([
+            'meta' => [
+                'code' => 200,
+                'message' => 'Register successfuly'
+            ]
+        ], 200);
     }
 }

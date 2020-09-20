@@ -21,6 +21,7 @@ Route::post('login', 'Api\LoginController@login');
 Route::post('register', 'Api\RegisterController@store');
 
 Route::get('user/{id}', 'Api\UserController@show');
+Route::post('user/profile', 'Api\UserController@profile');
 Route::put('user/name/{id}', 'Api\UserController@updateName');
 Route::put('user/password/{id}', 'Api\UserController@updatePassword');
 Route::put('user/avatar/{id}', 'Api\UserController@updateAvatar');
