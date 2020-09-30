@@ -30,3 +30,4 @@ Route::group(['prefix' => 'admin'], function () {
 // https://www.youtube.com/watch?v=D9oIu6jiYLk
 // https://medium.com/flutter-community/implement-real-time-location-updates-on-google-maps-in-flutter-235c8a09173e
 // https://github.com/musonza/groups
+// https://github.com/willvincent/laravel-rateable
