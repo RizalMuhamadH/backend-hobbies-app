@@ -22,9 +22,9 @@ class CreateEventsTable extends Migration
             $table->dateTime('end');
             $table->string('status')->default('DRAFT');
             // $table->string('slug');
-            // $table->string('meta_description');
-            // $table->string('meta_keywords');
-            // $table->string('seo_title');
+            $table->string('meta_description')->nullable();
+            $table->string('meta_keywords')->nullable();
+            $table->string('seo_title')->nullable();
             $table->unsignedBigInteger('event_category_id');
             $table->unsignedBigInteger('admin_id');
             $table->timestamps();

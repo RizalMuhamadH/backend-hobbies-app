@@ -19,6 +19,7 @@ class CreatePlacesTable extends Migration
             $table->string('address');
             $table->double('lat');
             $table->double('lng');
+            $table->unsignedTinyInteger('zoom')->default(10);
             $table->timestamps();
         });
     }

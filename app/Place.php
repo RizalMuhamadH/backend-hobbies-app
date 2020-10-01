@@ -13,4 +13,14 @@ class Place extends Model
     {
         return $this->morphedByMany(Post::class, 'placeable');
     }
+
+    public function discoveries()
+    {
+        return $this->morphedByMany(Discovery::class, 'placeable');
+    }
+
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'imageable');
+    }
 }
