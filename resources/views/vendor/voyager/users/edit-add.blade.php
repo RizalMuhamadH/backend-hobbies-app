@@ -55,6 +55,13 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="phone">{{ __('Phone') }}</label>
+                            <input type="text" class="form-control" id="phone" name="phone"
+                                placeholder="{{ __('Phone') }}"
+                                value="{{ old('phone', $dataTypeContent->phone ?? '') }}">
+                        </div>
+
+                        <div class="form-group">
                             <label for="password">{{ __('voyager::generic.password') }}</label>
                             @if(isset($dataTypeContent->password))
                             <br>
