@@ -15,7 +15,7 @@ class RegisterController extends Controller
         //     'name' => 'required|string|max:255',
         //     'email' => 'required|string|email|max:255|unique:users',
         //     'password' => 'required|string|min:6',
-            // 'notify_token' => 'required|string',
+        // 'notify_token' => 'required|string',
         // ]);
 
         $validate = Validator::make($request->all(), [
@@ -24,7 +24,7 @@ class RegisterController extends Controller
             'password' => 'required|string|min:6',
         ]);
 
-        if($validate->fails()){
+        if ($validate->fails()) {
             return response([
                 'meta' => [
                     'code' => 400,
@@ -44,7 +44,8 @@ class RegisterController extends Controller
             'meta' => [
                 'code' => 200,
                 'message' => 'Register successfuly'
-            ]
+            ],
+            'data' => $user
         ], 200);
     }
 }
