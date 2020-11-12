@@ -29,7 +29,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::put('post', 'Api\PostController@update');
     Route::get('post/show/{id}', 'Api\PostController@show');
     Route::get('post/feed', 'Api\PostController@feed');
-    Route::get('post/feed/following/{id}', 'Api\PostController@feedFollowings');
+    Route::get('post/feed/{id}/following', 'Api\PostController@feedFollowings');
     Route::post('post/comment', 'Api\CommentController@store');
     Route::post('post/comment/reply', 'Api\CommentController@replyStore');
 
