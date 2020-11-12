@@ -26,6 +26,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::put('user/avatar/{id}', 'Api\UserController@updateAvatar');
 
     Route::post('post', 'Api\PostController@store');
+    Route::put('post', 'Api\PostController@update');
     Route::get('post/show/{id}', 'Api\PostController@show');
     Route::get('post/feed', 'Api\PostController@feed');
     Route::get('post/feed/following/{id}', 'Api\PostController@feedFollowings');
