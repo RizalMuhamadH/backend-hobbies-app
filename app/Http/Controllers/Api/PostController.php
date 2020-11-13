@@ -25,6 +25,8 @@ class PostController extends Controller
         if ($post) {
             return new PostCommentResource($post->with(['comments.replies'])->first());
         }
+
+        return [];
     }
 
     public function store(Request $request)

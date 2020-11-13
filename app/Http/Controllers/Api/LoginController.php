@@ -25,7 +25,7 @@ class LoginController extends Controller
             'device_name' => 'required',
         ]);
 
-        if($validate->fails()){
+        if ($validate->fails()) {
             return response([
                 'meta' => [
                     'code' => 400,
@@ -57,11 +57,16 @@ class LoginController extends Controller
 
         $user->tokens()->delete();
 
-        $user->createToken($request->device_name);
+        $token = $user->createToken($request->device_name)->plainTextToken;
 
-        return (new UserProfileResource($user))->additional(['meta' => [
-            'code' => 200,
-            'message' => 'Data found'
-        ]])->response();
+        return (new UserProfileResource($user))->additional([
+            'meta' => [
+                'code' => 200,
+                'message' => 'Data found'
+            ],
+            'data' => [
+                'token' => $token
+            ]
+        ])->response();
     }
 }
