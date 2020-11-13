@@ -18,7 +18,8 @@ class VideoResource extends JsonResource
         return [
             'id'            => $this->id,
             'path'          => $data->download_link,
-            'name'          => $this->original_name,
+            'name'          => $data->original_name,
+            'type'          => 'video',
             'created_at'    => $this->created_at
         ];
     }

@@ -21,7 +21,7 @@ class UserProfileResource extends JsonResource
             'phone'          => $this->phone,
             'avatar'        => $this->avatar,
             'notify_token'  => $this->notify_token,
-            'tokens'        => new UserTokenResource($this->tokens()->first()),
+            // 'tokens'        => new UserTokenResource($this->tokens()->first()),
             'followings'    => $this->followings()->count(),
             'followers'     => $this->followers()->count(),
             'posts'         => $this->posts()->count()
