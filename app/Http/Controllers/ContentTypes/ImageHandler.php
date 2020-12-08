@@ -18,10 +18,10 @@ class ImageHandler extends BaseType
 
             $id = '';
             if ($this->request->id) {
-                $id = $this->request->id . DIRECTORY_SEPARATOR;
+                $id = $this->request->id . "/";
             }
 
-            $path = $this->slug . DIRECTORY_SEPARATOR . $id . date('Y') . DIRECTORY_SEPARATOR . date('m') . DIRECTORY_SEPARATOR;
+            $path = $this->slug . "/" . $id . date('Y') . "/" . date('m') . "/";
 
             $filename = $this->generateFileName($file, $path);
 

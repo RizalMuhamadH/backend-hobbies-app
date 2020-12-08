@@ -47,10 +47,10 @@ class MultipleFileHandler extends BaseType
     {
         $id = '';
         if ($this->request->id) {
-            $id = $this->request->id . DIRECTORY_SEPARATOR;
+            $id = $this->request->id . "/";
         }
 
-        return $this->slug . DIRECTORY_SEPARATOR . $id . date('Y') . DIRECTORY_SEPARATOR . date('m') . DIRECTORY_SEPARATOR;
+        return $this->slug . "/" . $id . date('Y') . "/" . date('m') . "/";
     }
 
     /**

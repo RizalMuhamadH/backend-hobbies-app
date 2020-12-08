@@ -49,11 +49,11 @@ class MultipleImageHandler extends BaseType
 
             $id = '';
             if ($this->request->id) {
-                $id = $this->request->id . DIRECTORY_SEPARATOR;
+                $id = $this->request->id . "/";
             }
 
             $filename = Str::random(20);
-            $path = $this->slug . DIRECTORY_SEPARATOR . $id . date('Y') . DIRECTORY_SEPARATOR . date('m') . DIRECTORY_SEPARATOR;
+            $path = $this->slug . "/" . $id . date('Y') . "/" . date('m') . "/";
             array_push($filesPath, $path . $filename . '.' . $file->getClientOriginalExtension());
             $filePath = $path . Carbon::now()->timestamp . '_' . uniqid() . '_' . $filename . '.' . $file->getClientOriginalExtension();
 
