@@ -18,6 +18,6 @@ use TCG\Voyager\Events\BreadImagesDeleted;
 use TCG\Voyager\Facades\Voyager;
 use TCG\Voyager\Http\Controllers\VoyagerBaseController;
 
-class NewsController extends VoyagerBaseController
+class NewsController extends BaseController
 {
 }
