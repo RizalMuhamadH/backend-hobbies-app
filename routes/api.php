@@ -18,7 +18,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
 Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('main/{user}', 'Api\MainController@main');
+
     Route::get('user/{id}', 'Api\UserController@show');
     Route::post('user/profile', 'Api\UserController@profile');
     Route::put('user/name/{id}', 'Api\UserController@updateName');
