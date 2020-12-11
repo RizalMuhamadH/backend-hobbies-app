@@ -21,6 +21,7 @@ class PostResource extends JsonResource
             'place'          => new PlaceResource($this->place()->first()),
             'images'         => ImageResource::collection($this->images),
             'videos'         => VideoResource::collection($this->videos),
+            'count_comment'  => $this->comments->count(),
             'created_at'     => $this->created_at
         ];
     }
