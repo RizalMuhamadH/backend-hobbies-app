@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Traits\HasGroups;
+use App\Traits\Liker;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -16,6 +17,7 @@ class User extends \TCG\Voyager\Models\User
     use HasApiTokens;
     use Subscriber;
     use Followable;
+    use Liker;
 
     /**
      * The attributes that are mass assignable.
