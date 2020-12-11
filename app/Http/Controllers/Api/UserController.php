@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\UserFollow;
 use App\Geolocation;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\GeolocationResource;
@@ -88,7 +89,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        if($user) return (new UserResource($user))->additional(['meta' => [
+        if ($user) return (new UserResource($user))->additional(['meta' => [
             'code' => 200,
             'message' => 'Data found'
         ]])->response();
@@ -102,7 +103,6 @@ class UserController extends Controller
         ];
 
         return response($response, $response['meta']['code']);
-
     }
 
     /**
@@ -275,6 +275,75 @@ class UserController extends Controller
             'meta' => [
                 'code' => 500,
                 'message' => 'Data not found'
+            ]
+        ];
+
+        return response($response, $response['meta']['code']);
+    }
+
+    public function followUser(User $user, User $follow)
+    {
+        $private = $follow->settings['private'] == null || $follow->settings['private'] == false ? false : true;
+
+        if ($private) {
+            $user->toggleFollow($follow);
+        } else {
+            $user->follow($follow);
+        }
+        $request = ['user_request' => $user, 'user_follow' => $follow];
+        broadcast(new UserFollow($request))->toOthers();
+
+        $response = [
+            'data' => null,
+            'meta' => [
+                'code' => 200,
+                'message' => 'Successfully'
+            ]
+        ];
+
+        return response($response, $response['meta']['code']);
+    }
+
+    public function acceptFollowRequest(User $user, User $from)
+    {
+        $user->acceptFollowRequestFrom($from);
+
+        $response = [
+            'data' => null,
+            'meta' => [
+                'code' => 200,
+                'message' => 'Successfully'
+            ]
+        ];
+
+        return response($response, $response['meta']['code']);
+    }
+
+    public function rejectFollowRequest(User $user, User $from)
+    {
+        $user->rejectFollowRequestFrom($from);
+
+        $response = [
+            'data' => null,
+            'meta' => [
+                'code' => 200,
+                'message' => 'Successfully'
+            ]
+        ];
+
+        return response($response, $response['meta']['code']);
+    }
+
+    public function unfollowUser(User $user, User $unfollow)
+    {
+
+        $user->unfollow($unfollow);
+
+        $response = [
+            'data' => null,
+            'meta' => [
+                'code' => 200,
+                'message' => 'Successfully'
             ]
         ];
 
