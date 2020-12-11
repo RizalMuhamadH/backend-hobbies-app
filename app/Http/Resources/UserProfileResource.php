@@ -15,16 +15,17 @@ class UserProfileResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'            => $this->id,
-            'name'          => $this->name,
-            'email'         => $this->email,
-            'phone'          => $this->phone,
-            'avatar'        => $this->avatar,
-            'notify_token'  => $this->notify_token,
+            'id'              => $this->id,
+            'name'            => $this->name,
+            'email'           => $this->email,
+            'phone'           => $this->phone,
+            'avatar'          => $this->avatar,
+            'notify_token'    => $this->notify_token,
+            'settings'        => $this->settings,
             // 'tokens'        => new UserTokenResource($this->tokens()->first()),
-            'followings'    => $this->followings()->count(),
-            'followers'     => $this->followers()->count(),
-            'posts'         => $this->posts()->count()
+            'followings'      => $this->followings()->count(),
+            'followers'       => $this->followers()->count(),
+            'posts'           => $this->posts()->count()
         ];
     }
 }
