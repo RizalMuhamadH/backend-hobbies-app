@@ -137,10 +137,16 @@ class PostController extends Controller
 
             $post = Post::whereIn('user_id', $arr)->orderBy('created_at', 'asc')->get();
 
-            if ($post != '[]') return (PostResource::collection($post))->additional(['meta' => [
-                'code' => 200,
-                'message' => 'Data found'
-            ]])->response();
+            if ($post != '[]') {
+                $posts = PostResource::collection($post);
+                $posts->map(function ($v) use ($user) {
+                    $v->me = $user;
+                });
+                return ($posts)->additional(['meta' => [
+                    'code' => 200,
+                    'message' => 'Data found'
+                ]])->response();
+            }
 
             $response = [
                 'data' => null,
@@ -152,5 +158,35 @@ class PostController extends Controller
 
             return response($response, $response['meta']['code']);
         }
+    }
+
+    public function likePost(User $user, Post $post)
+    {
+        $user->like($post);
+
+        $response = [
+            'data' => null,
+            'meta' => [
+                'code' => 200,
+                'message' => 'Successfully'
+            ]
+        ];
+
+        return response($response, $response['meta']['code']);
+    }
+
+    public function unlikePost(User $user, Post $post)
+    {
+        $user->unlike($post);
+
+        $response = [
+            'data' => null,
+            'meta' => [
+                'code' => 200,
+                'message' => 'Successfully'
+            ]
+        ];
+
+        return response($response, $response['meta']['code']);
     }
 }

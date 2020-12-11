@@ -21,8 +21,12 @@ class PostResource extends JsonResource
             'place'          => new PlaceResource($this->place()->first()),
             'images'         => ImageResource::collection($this->images),
             'videos'         => VideoResource::collection($this->videos),
-            'count_comment'  => $this->comments->count(),
-            'created_at'     => $this->created_at
+            'comment_count'  => $this->comments->count(),
+            'like_count'     => $this->likers->count(),
+            'created_at'     => $this->created_at,
+            'liked'          => $this->when(property_exists($this, 'me'), function () {
+                return $this->isLikedBy($this->me);
+            })
         ];
     }
 }
