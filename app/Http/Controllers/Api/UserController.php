@@ -349,6 +349,48 @@ class UserController extends Controller
 
         return response($response, $response['meta']['code']);
     }
+
+    public function listUser(User $user)
+    {
+        $users = User::where("id","!=", $user->id)->orderBy("id", "desc")->paginate(15);
+
+
+
+        $users->map(function ($v) use ($user) {
+            $v->me = $user;
+        });
+        return ($users)->additional(['meta' => [
+            'code' => 200,
+            'message' => 'Data found'
+        ]])->response();
+    }
+
+    public function searchUsers(User $user, $search)
+    {
+        $users = User::where("id","!=", $user->id)->where("name","like", "%".$search."%")->orderBy("id", "desc")->paginate(15);
+
+        if(count($users) != 0){
+            $list = UserResource::collection($users);
+            $list->map(function ($v) use ($user) {
+                $v->me = $user;
+            });
+            return ($list)->additional(['meta' => [
+                'code' => 200,
+                'message' => 'Data found'
+            ]])->response();
+        }
+
+        $response = [
+            'data' => null,
+            'meta' => [
+                'code' => 500,
+                'message' => 'Data not found'
+            ]
+        ];
+
+        return response($response, $response['meta']['code']);
+
+    }
 }
 
 // https://daengweb.id/upload-resize-image-di-laravel-57

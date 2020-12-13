@@ -20,6 +20,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::middleware(['auth:sanctum'])->group(function () {
+
+
+    Route::get('user/{user}/list', 'Api\UserController@listUser');
+    Route::get('user/{user}/search/{search}', 'Api\UserController@searchUsers');
+
     Route::get('main/{user}', 'Api\MainController@main');
 
     Route::get('user/{id}', 'Api\UserController@show');
