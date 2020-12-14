@@ -59,4 +59,24 @@ class CommentController extends Controller
         $post = Post::find(1);
         return new CommentResource($post->comments()->first());
     }
+
+    public function postComments(Post $post)
+    {
+        $comments = $post->comments()->get();
+        if (count($comments) > 0)
+            return CommentResource::collection($comments)->additional(['meta' => [
+                'code' => 200,
+                'message' => 'Data found'
+            ]])->response();
+
+        $response = [
+            'data' => null,
+            'meta' => [
+                'code' => 200,
+                'message' => 'Data not found'
+            ]
+        ];
+
+        return response($response, $response['meta']['code']);
+    }
 }

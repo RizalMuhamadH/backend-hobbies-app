@@ -19,6 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
+
 Route::middleware(['auth:sanctum'])->group(function () {
 
 
@@ -40,6 +41,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('post/feed/{id}/following', 'Api\PostController@feedFollowings');
     Route::post('post/comment', 'Api\CommentController@store');
     Route::post('post/comment/reply', 'Api\CommentController@replyStore');
+    Route::get('post/comment/{post}', 'Api\CommentController@postComments');
 
     Route::post('group/chat/create', 'Api\GroupController@store');
     Route::get('group/user/{userId}', 'Api\GroupController@userGroups');
