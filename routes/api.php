@@ -42,6 +42,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('post/comment', 'Api\CommentController@store');
     Route::post('post/comment/reply', 'Api\CommentController@replyStore');
     Route::get('post/comment/{post}', 'Api\CommentController@postComments');
+    Route::delete('post/comment/{id}', 'Api\CommentController@destroy');
 
     Route::post('group/chat/create', 'Api\GroupController@store');
     Route::get('group/user/{userId}', 'Api\GroupController@userGroups');
