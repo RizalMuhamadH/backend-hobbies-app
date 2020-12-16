@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Comment;
+use App\Events\PostCommentDelete;
+use App\Events\PostCommentSent;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CommentResource;
 use App\Post;
@@ -26,10 +28,12 @@ class CommentController extends Controller
 
         $post->comments()->save($comment);
 
+        broadcast(new PostCommentSent($comment));
+
         return (new CommentResource($comment))->additional(['meta' => [
             'code' => 200,
             'message' => 'Successfuly'
-        ]])->response();;
+        ]])->response();
     }
 
     public function replyStore(Request $request)
@@ -72,11 +76,24 @@ class CommentController extends Controller
         $response = [
             'data' => null,
             'meta' => [
-                'code' => 200,
+                'code' => 500,
                 'message' => 'Data not found'
             ]
         ];
 
-        return response($response, $response['meta']['code']);
+        return response($response, 200);
+    }
+
+    public function destroy($id)
+    {
+        $comment = Comment::find($id);
+        Comment::destroy($id);
+
+        broadcast(new PostCommentDelete($comment));
+
+        return (new CommentResource($comment))->additional(['meta' => [
+            'code' => 200,
+            'message' => 'Data found'
+        ]])->response();
     }
 }
