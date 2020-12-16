@@ -15,4 +15,9 @@ class Comment extends Model
     {
         return $this->hasMany(Comment::class, 'parent_id')->orderBy('created_at', 'desc');
     }
+
+    public function commentable()
+    {
+        return $this->morphTo();
+    }
 }
