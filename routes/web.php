@@ -1,5 +1,7 @@
 <?php
 
+use App\Comment;
+use App\Events\PostCommentSent;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,9 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    broadcast(new PostCommentSent(Comment::find(1)));
+    return "oke";
+});
 
 
 Route::group(['prefix' => 'admin'], function () {
