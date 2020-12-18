@@ -40,16 +40,16 @@ class PostController extends Controller
         ]);
 
         if ($request->place != null) {
-            $place = Place::where('name', $request->place->name)->where('address', $request->place_address)->first();
+            $place = Place::where('name', $request->place['name'])->where('address', $request->place_address)->first();
 
             if ($place) {
-                $post->places()->attach($place->id);
+                $post->place()->attach($place->id);
             } else {
-                $post->places()->create([
-                    'name'      => $request->place->name,
-                    'address'   => $request->place->address,
-                    'lat'       => $request->place->lat,
-                    'lng'       => $request->place->lng
+                $post->place()->create([
+                    'name'      => $request->place['name'],
+                    'address'   => $request->place['address'],
+                    'lat'       => $request->place['lat'],
+                    'lng'       => $request->place['lng']
                 ]);
             }
         }
@@ -72,7 +72,7 @@ class PostController extends Controller
             $paths = (new MultipleFileHandler($request, 'videos', 'file_videos', Video::class))->handle();
             $arr = json_decode($paths);
             foreach ($arr as $item) {
-                $post->videos()->create(['path' => $item]);
+                $post->videos()->create(['path' => json_encode($item)]);
             }
         }
 

@@ -54,8 +54,9 @@ class MultipleImageHandler extends BaseType
 
             $filename = Str::random(20);
             $path = $this->slug . "/" . $id . date('Y') . "/" . date('m') . "/";
-            array_push($filesPath, $path . $filename . '.' . $file->getClientOriginalExtension());
             $filePath = $path . Carbon::now()->timestamp . '_' . uniqid() . '_' . $filename . '.' . $file->getClientOriginalExtension();
+            array_push($filesPath, $filePath);
+
 
             $image = $image->resize(
                 $resize_width,
