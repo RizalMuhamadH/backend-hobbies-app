@@ -19,7 +19,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-
 Route::middleware(['auth:sanctum'])->group(function () {
 
 
@@ -33,6 +32,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::put('user/name/{id}', 'Api\UserController@updateName');
     Route::put('user/password/{id}', 'Api\UserController@updatePassword');
     Route::put('user/avatar/{id}', 'Api\UserController@updateAvatar');
+
 
     Route::post('post', 'Api\PostController@store');
     Route::put('post', 'Api\PostController@update');

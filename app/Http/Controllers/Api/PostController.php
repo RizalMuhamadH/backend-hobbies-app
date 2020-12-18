@@ -31,6 +31,7 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
+        // return $request;
         $user = User::find($request->id);
 
         $post = Post::create([
@@ -38,17 +39,19 @@ class PostController extends Controller
             'user_id' => $user->id
         ]);
 
-        $place = Place::where('name', $request->place_name)->where('address', $request->place_address)->first();
+        if ($request->place != null) {
+            $place = Place::where('name', $request->place->name)->where('address', $request->place_address)->first();
 
-        if ($place) {
-            $post->places()->attach($place->id);
-        } else {
-            $post->places()->create([
-                'name'      => $request->place_name,
-                'address'   => $request->place_address,
-                'lat'       => $request->place_lat,
-                'lng'       => $request->place_lng
-            ]);
+            if ($place) {
+                $post->places()->attach($place->id);
+            } else {
+                $post->places()->create([
+                    'name'      => $request->place->name,
+                    'address'   => $request->place->address,
+                    'lat'       => $request->place->lat,
+                    'lng'       => $request->place->lng
+                ]);
+            }
         }
 
         if ($request->hasFile('file_image')) {
@@ -134,8 +137,9 @@ class PostController extends Controller
             foreach ($user->followings as $following) {
                 array_push($arr, $following->id);
             }
+            array_push($arr, $user->id);
 
-            $post = Post::whereIn('user_id', $arr)->orderBy('created_at', 'asc')->get();
+            $post = Post::whereIn('user_id', $arr)->orderBy('created_at', 'desc')->get();
 
             if ($post != '[]') {
                 $posts = PostResource::collection($post);
