@@ -70,4 +70,9 @@ class User extends \TCG\Voyager\Models\User
     {
         return $this->hasOne(Geolocation::class);
     }
+
+    public function hobbies()
+    {
+        return $this->morphToMany(Hobby::class, 'hobbyable')->withTimestamps();
+    }
 }
