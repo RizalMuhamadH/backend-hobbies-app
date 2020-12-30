@@ -152,7 +152,7 @@ class UserController extends Controller
             ]
         ];
 
-        return response($response, $response['meta']['code']);
+        return response($response, 200);
     }
 
     public function updatePassword(Request $request, $id)
@@ -176,7 +176,7 @@ class UserController extends Controller
             ]
         ];
 
-        return response($response, $response['meta']['code']);
+        return response($response, 200);
     }
 
     public function updateAvatar(Request $request, $id)
@@ -210,7 +210,7 @@ class UserController extends Controller
             ]
         ];
 
-        return response($response, $response['meta']['code']);
+        return response($response, 200);
     }
 
     /**
@@ -241,7 +241,7 @@ class UserController extends Controller
             ]
         ];
 
-        return response($response, $response['meta']['code']);
+        return response($response, 200);
     }
 
     public function setGeolocation(Request $request)
@@ -278,7 +278,7 @@ class UserController extends Controller
             ]
         ];
 
-        return response($response, $response['meta']['code']);
+        return response($response, 200);
     }
 
     public function followUser(User $user, User $follow)
@@ -352,7 +352,7 @@ class UserController extends Controller
 
     public function listUser(User $user)
     {
-        $users = User::where("id","!=", $user->id)->orderBy("id", "desc")->paginate(15);
+        $users = User::where("id", "!=", $user->id)->orderBy("id", "desc")->paginate(15);
 
 
 
@@ -367,9 +367,9 @@ class UserController extends Controller
 
     public function searchUsers(User $user, $search)
     {
-        $users = User::where("id","!=", $user->id)->where("name","like", "%".$search."%")->orderBy("id", "desc")->paginate(15);
+        $users = User::where("id", "!=", $user->id)->where("name", "like", "%" . $search . "%")->orderBy("id", "desc")->paginate(15);
 
-        if(count($users) != 0){
+        if (count($users) != 0) {
             $list = UserResource::collection($users);
             $list->map(function ($v) use ($user) {
                 $v->me = $user;
@@ -388,8 +388,29 @@ class UserController extends Controller
             ]
         ];
 
-        return response($response, $response['meta']['code']);
+        return response($response, 200);
+    }
 
+    public function userFollowings(User $user)
+    {
+        if (count($user->followings) != 0) {
+            $friends = UserResource::collection($user->followings);
+
+            return ($friends)->additional(['meta' => [
+                'code' => 200,
+                'message' => 'Data found'
+            ]])->response();
+        }
+
+        $response = [
+            'data' => null,
+            'meta' => [
+                'code' => 500,
+                'message' => 'Data not found'
+            ]
+        ];
+
+        return response($response, 200);
     }
 }
 

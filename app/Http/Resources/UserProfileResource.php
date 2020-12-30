@@ -25,7 +25,8 @@ class UserProfileResource extends JsonResource
             // 'tokens'        => new UserTokenResource($this->tokens()->first()),
             'followings'      => $this->followings()->count(),
             'followers'       => $this->followers()->count(),
-            'posts'           => $this->posts()->count()
+            'posts'           => $this->posts()->count(),
+            'hobbies'         => HobbyResource::collection($this->hobbies)
         ];
     }
 }

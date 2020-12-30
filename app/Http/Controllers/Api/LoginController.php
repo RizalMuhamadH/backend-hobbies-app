@@ -30,7 +30,8 @@ class LoginController extends Controller
                 'meta' => [
                     'code' => 400,
                     'message' => $validate->errors()->first()
-                ]
+                ],
+                'data' => null
             ], 200);
         }
 
@@ -40,7 +41,8 @@ class LoginController extends Controller
                 'meta' => [
                     'code' => 400,
                     'message' => 'Unauthorized'
-                ]
+                ],
+                'data' => null
             ], 200);
         }
 

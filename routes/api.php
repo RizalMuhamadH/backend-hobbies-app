@@ -18,12 +18,20 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('user/{user}/hobby/{hobby}', 'Api\HobbyController@choiceHobby');
 
 Route::middleware(['auth:sanctum'])->group(function () {
 
 
+    Route::get('hobbies', 'Api\HobbyController@getHobbies');
+
     Route::get('user/{user}/list', 'Api\UserController@listUser');
     Route::get('user/{user}/search/{search}', 'Api\UserController@searchUsers');
+    Route::get('user/{user}/followings', 'Api\UserController@userFollowings');
+    Route::get('user/{user}/follow/{follow}', 'Api\UserController@followUser');
+    Route::get('user/{user}/unfollow/{unfollow}', 'Api\UserController@unfollowUser');
+    Route::get('user/{user}/accept/request/{from}', 'Api\UserController@acceptFollowRequest');
+    Route::get('user/{user}/reject/request/{from}', 'Api\UserController@acceptFollowRequest');
 
     Route::get('main/{user}', 'Api\MainController@main');
 
