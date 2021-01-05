@@ -6,6 +6,7 @@ use App\Events\UserFollow;
 use App\Geolocation;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\GeolocationResource;
+use App\Http\Resources\PostResource;
 use App\Http\Resources\UserProfileResource;
 use App\Http\Resources\UserResource;
 use App\User;
@@ -58,15 +59,18 @@ class UserController extends Controller
         //
     }
 
-    public function profile(Request $request)
+    public function profile(User $user)
     {
 
-        $user = User::where('id', $request->id)->first();
         if ($user) {
-            return (new UserProfileResource($user))->additional(['meta' => [
-                'code' => 200,
-                'message' => 'Data found'
-            ]])->response();
+            return (new UserProfileResource($user))->additional([
+                'meta' => [
+                    'code' => 200,
+                    'message' => 'Data found'
+                ], "data" => [
+                    "post_collection" => PostResource::collection($user->posts()->get())
+                ]
+            ])->response();
         }
 
         $response = [

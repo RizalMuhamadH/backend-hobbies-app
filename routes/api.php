@@ -20,6 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('user/{user}/hobby/{hobby}', 'Api\HobbyController@choiceHobby');
 
+
 Route::middleware(['auth:sanctum'])->group(function () {
 
 
@@ -36,7 +37,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('main/{user}', 'Api\MainController@main');
 
     Route::get('user/{id}', 'Api\UserController@show');
-    Route::post('user/profile', 'Api\UserController@profile');
+    Route::get('user/{user}/profile', 'Api\UserController@profile');
     Route::put('user/name/{id}', 'Api\UserController@updateName');
     Route::put('user/password/{id}', 'Api\UserController@updatePassword');
     Route::put('user/avatar/{id}', 'Api\UserController@updateAvatar');
