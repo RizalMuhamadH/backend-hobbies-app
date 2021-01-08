@@ -36,7 +36,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('main/{user}', 'Api\MainController@main');
 
-    Route::get('user/{id}', 'Api\UserController@show');
+    Route::get('user/{user}', 'Api\UserController@show');
     Route::get('user/{user}/profile', 'Api\UserController@profile');
     Route::put('user/name/{id}', 'Api\UserController@updateName');
     Route::put('user/password/{id}', 'Api\UserController@updatePassword');

@@ -81,7 +81,7 @@ class UserController extends Controller
             ]
         ];
 
-        return response($response, $response['meta']['code']);
+        return response($response, 200);
     }
 
     /**
@@ -90,12 +90,14 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user, User $me)
     {
-        $user = User::find($id);
-        if ($user) return (new UserResource($user))->additional(['meta' => [
+
+        if ($user) return (new UserProfileResource($user))->additional(['meta' => [
             'code' => 200,
             'message' => 'Data found'
+        ], "data" => [
+            "following" => $me->isFollowing($user->id)
         ]])->response();
 
         $response = [
@@ -106,7 +108,7 @@ class UserController extends Controller
             ]
         ];
 
-        return response($response, $response['meta']['code']);
+        return response($response, 200);
     }
 
     /**
