@@ -164,7 +164,7 @@ class PostController extends Controller
         }
     }
 
-    public function likePost(User $user, Post $post)
+    public function likePost(Post $post, User $user)
     {
         $user->like($post);
 
@@ -179,7 +179,7 @@ class PostController extends Controller
         return response($response, $response['meta']['code']);
     }
 
-    public function unlikePost(User $user, Post $post)
+    public function unlikePost(Post $post, User $user)
     {
         $user->unlike($post);
 
