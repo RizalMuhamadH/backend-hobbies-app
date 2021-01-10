@@ -36,11 +36,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('main/{user}', 'Api\MainController@main');
 
-    Route::get('user/{user}', 'Api\UserController@show');
-    Route::get('user/{user}/profile', 'Api\UserController@profile');
-    Route::put('user/name/{id}', 'Api\UserController@updateName');
-    Route::put('user/password/{id}', 'Api\UserController@updatePassword');
-    Route::put('user/avatar/{id}', 'Api\UserController@updateAvatar');
+    Route::get('user/{me}/profile/{user}', 'Api\UserController@profile');
+    Route::get('user/{me}/profile/{user}/see', 'Api\UserController@userProfile');
+    Route::post('user/update/name', 'Api\UserController@updateName');
+    Route::post('user/update/password', 'Api\UserController@updatePassword');
+    Route::post('user/update/avatar', 'Api\UserController@updateAvatar');
 
 
     Route::post('post', 'Api\PostController@store');
@@ -52,6 +52,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('post/comment/reply', 'Api\CommentController@replyStore');
     Route::get('post/comment/{post}', 'Api\CommentController@postComments');
     Route::delete('post/comment/{id}', 'Api\CommentController@destroy');
+    Route::get('post/{post}/like/{user}', 'Api\PostController@likePost');
+    Route::get('post/{post}/unlike/{user}', 'Api\PostController@likePost');
 
     Route::post('group/chat/create', 'Api\GroupController@store');
     Route::get('group/user/{userId}', 'Api\GroupController@userGroups');
