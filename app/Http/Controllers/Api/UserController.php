@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Events\UserFollow;
 use App\Geolocation;
+use App\Http\Controllers\ContentTypes\ImageHandler;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\GeolocationResource;
 use App\Http\Resources\PostResource;
@@ -59,7 +60,7 @@ class UserController extends Controller
         //
     }
 
-    public function profile(User $user)
+    public function profile(User $me, User $user)
     {
 
         if ($user) {
@@ -68,6 +69,7 @@ class UserController extends Controller
                     'code' => 200,
                     'message' => 'Data found'
                 ], "data" => [
+                    "following" => $me->id == $user->id ? false : $me->isFollowing($user->id),
                     "post_collection" => PostResource::collection($user->posts()->get())
                 ]
             ])->response();
@@ -90,7 +92,28 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user, User $me)
+    public function show(User $me, User $user)
+    {
+
+        if ($user) return (new UserProfileResource($user))->additional(['meta' => [
+            'code' => 200,
+            'message' => 'Data found'
+        ], "data" => [
+            "following" => $me->isFollowing($user->id)
+        ]])->response();
+
+        $response = [
+            'data' => null,
+            'meta' => [
+                'code' => 400,
+                'message' => 'Data not found'
+            ]
+        ];
+
+        return response($response, 200);
+    }
+
+    public function userProfile(User $me, User $user)
     {
 
         if ($user) return (new UserProfileResource($user))->additional(['meta' => [
@@ -137,7 +160,7 @@ class UserController extends Controller
         }
     }
 
-    public function updateName(Request $request, $id)
+    public function updateName(Request $request)
     {
         $user = User::where('email', $request->email)->first();
 
@@ -161,7 +184,7 @@ class UserController extends Controller
         return response($response, 200);
     }
 
-    public function updatePassword(Request $request, $id)
+    public function updatePassword(Request $request)
     {
         $user = User::where('email', $request->email)->first();
 
@@ -185,22 +208,26 @@ class UserController extends Controller
         return response($response, 200);
     }
 
-    public function updateAvatar(Request $request, $id)
+    public function updateAvatar(Request $request)
     {
-        $this->validate($request, [
-            'avatar' => 'required|image|mimes:jpg,png,jpeg'
-        ]);
+        // $this->validate($request, [
+        //     'avatar' => 'required|image|mimes:jpg,png,jpeg'
+        // ]);
 
 
         $user = User::where('email', $request->email)->first();
 
         if ($user) {
-            $file = $request->file("avatar");
-            $fileName = Carbon::now()->timestamp . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
 
-            Image::make($file)->save($this->path . '/' . $fileName);
+            $path = (new ImageHandler($request, 'users', 'avatar', Image::class))->handle();
 
-            $user->update(["avatar" => "users/" . $fileName]);
+            // $file = $request->file("avatar");
+            // $fileName = Carbon::now()->timestamp . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+
+            // Image::make($file)->save($this->path . '/' . $fileName);
+
+            $user->avatar = $path;
+            $user->save();
 
             return (new UserProfileResource($user))->additional(['meta' => [
                 'code' => 200,
@@ -209,7 +236,7 @@ class UserController extends Controller
         }
 
         $response = [
-            'data' => null,
+            'data' => $request->email,
             'meta' => [
                 'code' => 500,
                 'message' => 'Data not found'
@@ -289,13 +316,16 @@ class UserController extends Controller
 
     public function followUser(User $user, User $follow)
     {
-        $private = $follow->settings['private'] == null || $follow->settings['private'] == false ? false : true;
+        // $private = $follow->settings['private'] == null || $follow->settings['private'] == false ? false : true;
 
-        if ($private) {
-            $user->toggleFollow($follow);
-        } else {
-            $user->follow($follow);
-        }
+        // if ($private) {
+        //     $user->toggleFollow($follow);
+        // } else {
+        //     $user->follow($follow);
+        // }
+
+        $user->follow($follow);
+
         $request = ['user_request' => $user, 'user_follow' => $follow];
         broadcast(new UserFollow($request))->toOthers();
 
@@ -373,7 +403,7 @@ class UserController extends Controller
 
     public function searchUsers(User $user, $search)
     {
-        $users = User::where("id", "!=", $user->id)->where("name", "like", "%" . $search . "%")->orderBy("id", "desc")->paginate(15);
+        $users = User::where("id", "!=", $user->id)->where("name", "like", "%" . $search . "%")->orderBy("id", "desc")->limit(20)->get();
 
         if (count($users) != 0) {
             $list = UserResource::collection($users);
