@@ -40,12 +40,19 @@ class RegisterController extends Controller
 
         ]);
 
-        return response([
+        return (new UserProfileResource($user))->additional([
             'meta' => [
                 'code' => 200,
                 'message' => 'Register successfuly'
-            ],
-            'data' => $user
-        ], 200);
+            ]
+        ])->response();
+
+        // return response([
+        //     'meta' => [
+        //         'code' => 200,
+        //         'message' => 'Register successfuly'
+        //     ],
+        //     'data' => $user
+        // ], 200);
     }
 }
