@@ -81,3 +81,4 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 Route::post('login', 'Api\LoginController@login');
 Route::post('register', 'Api\RegisterController@store');
+Route::post('auth', 'Api\RegisterController@auth');
