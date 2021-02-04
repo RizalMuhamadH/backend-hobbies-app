@@ -57,6 +57,9 @@ class LoginController extends Controller
             ], 200);
         }
 
+        $user->notify_token = $request->token;
+        $user->save();
+
         $user->tokens()->delete();
 
         $token = $user->createToken($request->device_name)->plainTextToken;

@@ -14,10 +14,21 @@ class AuthGoogleController extends Controller
         $user = User::where('google_token', $request->uid)->first();
 
         if($user) {
+
+            $user->notify_token = $request->token;
+            $user->save();
+                
+            $user->tokens()->delete();
+
+            $token = $user->createToken($request->device_name)->plainTextToken;
+
             return (new UserProfileResource($user))->additional([
                 'meta' => [
                     'code' => 200,
                     'message' => 'Register successfuly'
+                ],
+                'data' => [
+                    'token' => $token
                 ]
             ])->response();
         } else {
@@ -29,11 +40,15 @@ class AuthGoogleController extends Controller
                 'notify_token' => $request->notify,
     
             ]);
+            $token = $user->createToken($request->device_name)->plainTextToken;
     
             return (new UserProfileResource($user))->additional([
                 'meta' => [
                     'code' => 200,
                     'message' => 'Register successfuly'
+                ],
+                'data' => [
+                    'token' => $token
                 ]
             ])->response();
         }
