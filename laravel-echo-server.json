@@ -5,8 +5,8 @@
     "database": "redis",
     "databaseConfig": {
         "redis": {
-            "host": "49.128.184.136",
-            "port": "6379",
+            "host": "103.102.153.177",
+            "port": "6381",
             "password": null
         },
         "sqlite": {
@@ -14,7 +14,7 @@
         }
     },
     "devMode": true,
-    "host": "192.168.100.121",
+    "host": "app.hulahob.com",
     "port": "6001",
     "protocol": "http",
     "socketio": {},
