@@ -52,6 +52,8 @@ class CommentController extends Controller
 
         $post->comments()->save($reply);
 
+        broadcast(new PostCommentSent($reply));
+
         return (new CommentResource($reply))->additional(['meta' => [
             'code' => 200,
             'message' => 'Successfuly'
@@ -68,7 +70,7 @@ class CommentController extends Controller
     {
         $comments = $post->comments()->get();
         if (count($comments) > 0)
-            return CommentResource::collection($comments)->additional(['meta' => [
+            return CommentResource::collection($comments->load('replies'))->additional(['meta' => [
                 'code' => 200,
                 'message' => 'Data found'
             ]])->response();
