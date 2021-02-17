@@ -13,4 +13,19 @@ class Hobby extends Model
     {
         return $this->morphedByMany(User::class, 'hobbyable');
     }
+
+    public function parentId()
+    {
+        return $this->belongsTo(self::class);
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo('Hobby', 'parent_id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany('Hobby', 'parent_id');
+    }
 }
