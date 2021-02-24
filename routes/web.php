@@ -16,8 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    broadcast(new PostCommentSent(Comment::find(1)));
-    return "oke";
+    return redirect('/admin');
 });
 
 
