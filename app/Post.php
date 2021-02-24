@@ -21,6 +21,11 @@ class Post extends Model
         return $this->morphMany(Comment::class, 'commentable')->whereNull('parent_id')->orderBy('created_at', 'desc');
     }
 
+    public function commentCount()
+    {
+        return $this->morphMany(Comment::class, 'commentable')->count();
+    }
+
     public function images()
     {
         return $this->morphMany(Image::class, 'imageable');
