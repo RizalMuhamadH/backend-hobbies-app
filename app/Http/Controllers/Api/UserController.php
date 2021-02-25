@@ -327,7 +327,7 @@ class UserController extends Controller
         $user->follow($follow);
 
         $request = ['user_request' => $user, 'user_follow' => $follow];
-        broadcast(new UserFollow($request))->toOthers();
+        // broadcast(new UserFollow($request))->toOthers();
 
         $response = [
             'data' => null,
