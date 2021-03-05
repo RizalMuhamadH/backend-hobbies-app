@@ -38,6 +38,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('user/{me}/profile/{user}', 'Api\UserController@profile');
     Route::get('user/{me}/profile/{user}/see', 'Api\UserController@userProfile');
+    Route::put('user/update', 'Api\UserController@update');
     Route::post('user/update/name', 'Api\UserController@updateName');
     Route::post('user/update/password', 'Api\UserController@updatePassword');
     Route::post('user/update/avatar', 'Api\UserController@updateAvatar');

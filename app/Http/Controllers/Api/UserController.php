@@ -152,12 +152,38 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $user = User::findOrFail($id);
+        $user = User::where('email', $request->email)->first();
 
         if ($user) {
+            if ($request->name != null)
+                $user->update(["name" => $request->name]);
+
+            if ($request->password != null)
+                $user->update(["password" => bcrypt($request->password)]);
+
+            if ($request->hobby != $user->hobbies()[0]->id) {
+                $user->hobbies()->detach();
+                $user->hobbies()->attach($request->hobby);
+            }
+
+            if ($user)
+                return (new UserProfileResource($user))->additional(['meta' => [
+                    'code' => 200,
+                    'message' => 'Data found'
+                ]])->response();
         }
+
+        $response = [
+            'data' => null,
+            'meta' => [
+                'code' => 500,
+                'message' => 'Data not found'
+            ]
+        ];
+
+        return response($response, 200);
     }
 
     public function updateName(Request $request)
