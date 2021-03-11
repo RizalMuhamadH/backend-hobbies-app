@@ -163,7 +163,7 @@ class UserController extends Controller
             if ($request->password != null)
                 $user->update(["password" => bcrypt($request->password)]);
 
-            if ($request->hobby != $user->hobbies()[0]->id) {
+            if ($request->hobby != $user->hobbies()->get()[0]->id) {
                 $user->hobbies()->detach();
                 $user->hobbies()->attach($request->hobby);
             }
