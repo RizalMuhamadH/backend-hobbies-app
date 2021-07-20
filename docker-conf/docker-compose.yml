@@ -55,6 +55,9 @@ services:
         image: mariadb:latest
         container_name: mariadb-default
         hostname: mariadb-default
+        volumes:
+            - /docker-projects/mariadb-default/mysql:/var/lib/mysql/
+            - /docker-projects/mariadb-default/dumpstore:/dumpstore/
         environment:
             - MYSQL_DATABASE=db_hulahob
             - MYSQL_ROOT_PASSWORD=db_hulahob
