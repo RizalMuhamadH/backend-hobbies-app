@@ -1,0 +1,98 @@
+version: "3.8"
+services:
+    hulahob-panel:
+        # image: centos:centos7
+        build: ./ubuntu-php80
+        image: ubuntu-php80
+        container_name:  hulahob-panel
+        hostname:  hulahob-panel
+        volumes:
+            - /docker-projects/hulahob/panel:/var/www/html/
+        environment:
+            - DEBIAN_FRONTEND=noninteractive
+            - TZ=Asia/Jakarta
+        command: bash
+        tty: true
+        networks:
+            - web-app-net
+        restart: always
+
+    redis-master:
+        container_name: redis-master
+        image: redis:latest
+        restart: always
+        command: redis-server --port 6379
+        ports:
+            - 6379:6379
+
+    redis-slave:
+        container_name: redis-slave
+        image: redis:latest
+        restart: always
+        command: redis-server --slaveof redis-master 6379
+        depends_on:
+            - redis-master
+    
+    rabbitMQ:
+        image: rabbitmq:3.8-rc-management
+        container_name: rabbitMQ
+        hostname: rabbitMQ
+        restart: always
+        environment: 
+            - TZ=Asia/Jakarta
+            - RABBITMQ_DEFAULT_USER=rabbit
+            - RABBITMQ_DEFAULT_PASS=rabbit
+        ports: 
+            - 5672:5672
+            - 8082:15672
+        networks:
+            - web-app-net
+
+
+    mariadb-default:
+        # build: ./mysql-default
+        # image: mysql-default
+        image: mariadb:latest
+        container_name: mariadb-default
+        hostname: mariadb-default
+        ports: 
+            - 3307:3306
+        environment:
+            - MYSQL_DATABASE=db_api
+            - MYSQL_ROOT_PASSWORD=db_api
+            # - MYSQL_USER=root
+            # - MYSQL_PASSWORD=db_ayo_media_trial
+            - TZ=Asia/Jakarta
+        # command: mysqld --sql_mode=""
+        # command: mysqld --sql_mode="NO_ENGINE_SUBSTITUTION, STRICT_TRANS_TABLES, NO_ZERO_IN_DATE, NO_ZERO_DATE, ERROR_FOR_DIVISION_BY_ZERO, NO_AUTO_CREATE_USER"
+        restart: always
+        networks:
+            - web-app-net
+    
+    phpmyadmin-mariadb:
+        image: phpmyadmin/phpmyadmin
+        container_name: phpmyadmin-mariadb
+        hostname: phpmyadmin-mariadb
+        environment:
+            - PMA_ARBITRARY=1
+            - PMA_HOST=mariadb-default
+        ports: 
+            - 8081:80
+        depends_on:
+            - mariadb-default
+        environment:
+            - UPLOAD_LIMIT=500M
+            - PMA_HOST=mariadb-default
+            - MYSQL_USERNAME=root
+            - MYSQL_ROOT_PASSWORD=db_api
+            - MYSQL_PASSWORD=db_api
+            - TZ=Asia/Jakarta
+        restart: always
+        networks:
+            - web-app-net
+        restart: always
+
+networks:
+    web-app-net:
+        name: web-app-net
+        driver: bridge
