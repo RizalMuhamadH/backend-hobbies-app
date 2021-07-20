@@ -55,8 +55,6 @@ services:
         image: mariadb:latest
         container_name: mariadb-default
         hostname: mariadb-default
-        ports: 
-            - 3307:3306
         environment:
             - MYSQL_DATABASE=db_hulahob
             - MYSQL_ROOT_PASSWORD=db_hulahob
@@ -76,8 +74,6 @@ services:
         environment:
             - PMA_ARBITRARY=1
             - PMA_HOST=mariadb-default
-        ports: 
-            - 8081:80
         depends_on:
             - mariadb-default
         environment:
@@ -88,6 +84,20 @@ services:
             - MYSQL_PASSWORD=db_hulahob
             - TZ=Asia/Jakarta
         restart: always
+        networks:
+            - web-app-net
+        restart: always
+    nginx-proxy-ssl:
+        # image: nginx:latest
+        build: ./nginx-proxy-ssl
+        image: nginx-proxy-ssl
+        container_name: nginx-proxy-ssl
+        hostname: nginx-proxy-ssl
+        ports:
+            - 80:80
+            - 443:443
+        volumes:
+            - /docker-projects/nginx-proxy-ssl/nginx/:/etc/nginx/conf.d/
         networks:
             - web-app-net
         restart: always
