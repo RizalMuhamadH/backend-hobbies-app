@@ -58,8 +58,8 @@ services:
         ports: 
             - 3307:3306
         environment:
-            - MYSQL_DATABASE=db_api
-            - MYSQL_ROOT_PASSWORD=db_api
+            - MYSQL_DATABASE=db_hulahob
+            - MYSQL_ROOT_PASSWORD=db_hulahob
             # - MYSQL_USER=root
             # - MYSQL_PASSWORD=db_ayo_media_trial
             - TZ=Asia/Jakarta
@@ -84,8 +84,8 @@ services:
             - UPLOAD_LIMIT=500M
             - PMA_HOST=mariadb-default
             - MYSQL_USERNAME=root
-            - MYSQL_ROOT_PASSWORD=db_api
-            - MYSQL_PASSWORD=db_api
+            - MYSQL_ROOT_PASSWORD=db_hulahob
+            - MYSQL_PASSWORD=db_hulahob
             - TZ=Asia/Jakarta
         restart: always
         networks:
