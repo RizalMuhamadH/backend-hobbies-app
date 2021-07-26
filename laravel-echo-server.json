@@ -14,7 +14,7 @@
         }
     },
     "devMode": true,
-    "host": "122.248.231.84",
+    "host": "panel.hulahob.com",
     "port": "6001",
     "protocol": "http",
     "socketio": {},
