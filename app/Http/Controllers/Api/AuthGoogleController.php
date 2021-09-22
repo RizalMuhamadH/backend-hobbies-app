@@ -28,6 +28,7 @@ class AuthGoogleController extends Controller
                     'message' => 'Register successfuly'
                 ],
                 'data' => [
+                    'status' => 'new',
                     'token' => $token
                 ]
             ])->response();
@@ -48,6 +49,7 @@ class AuthGoogleController extends Controller
                     'message' => 'Register successfuly'
                 ],
                 'data' => [
+                    'status' => 'exist',
                     'token' => $token
                 ]
             ])->response();
