@@ -15,7 +15,7 @@ class AuthGoogleController extends Controller
 
         if($user) {
 
-            $user->notify_token = $request->token;
+            $user->notify_token = $request->notify;
             $user->save();
                 
             $user->tokens()->delete();
