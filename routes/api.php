@@ -73,10 +73,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('events/category', 'Api\EventController@categories');
     Route::get('events/category/{catId}', 'Api\EventController@category');
 
-    Route::get('news', 'Api\EventController@index');
-    Route::get('news/{id}', 'Api\EventController@show');
-    Route::get('news/category', 'Api\EventController@categories');
-    Route::get('news/category/{catId}', 'Api\EventController@category');
+    Route::get('news', 'Api\NewsController@index');
+    Route::get('news/{id}', 'Api\NewsController@show');
+    Route::get('news/category', 'Api\NewsController@categories');
+    Route::get('news/category/{catId}', 'Api\NewsController@category');
     // Route::get('comment', 'Api\CommentController@index');
 });
 
