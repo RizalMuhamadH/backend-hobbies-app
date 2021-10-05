@@ -15,9 +15,9 @@ class MultipleFileHandler extends BaseType
      */
     public function handle()
     {
-        if (!$this->request->hasFile($this->row)) {
-            return;
-        }
+        // if (!$this->request->hasFile($this->row)) {
+        //     return;
+        // }
 
         $files = Arr::wrap($this->request->file($this->row));
 

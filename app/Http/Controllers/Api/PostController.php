@@ -60,7 +60,7 @@ class PostController extends Controller
             $post->images()->create(['path' => $path]);
         }
 
-        if ($request->hasFile('file_images')) {
+        if ($request->file_images != null) {
             $paths = (new MultipleImageHandler($request, 'images', 'file_images', Image::class))->handle();
             $arr = json_decode($paths);
             foreach ($arr as $item) {
@@ -68,7 +68,7 @@ class PostController extends Controller
             }
         }
 
-        if ($request->hasFile('file_videos')) {
+        if ($request->file_videos != null) {
             $paths = (new MultipleFileHandler($request, 'videos', 'file_videos', Video::class))->handle();
             $arr = json_decode($paths);
             foreach ($arr as $item) {
