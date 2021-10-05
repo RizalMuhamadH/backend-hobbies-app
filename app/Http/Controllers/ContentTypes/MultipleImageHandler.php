@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ContentTypes;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 use Intervention\Image\Constraint;
 use Intervention\Image\Facades\Image as InterventionImage;
 use TCG\Voyager\Http\Controllers\ContentTypes\BaseType;
@@ -17,19 +18,17 @@ class MultipleImageHandler extends BaseType
     public function handle()
     {
         $filesPath = [];
-        $files = $this->request->file($this->row);
-
-        if (!$files) {
-            return;
-        }
+        $files = Arr::wrap($this->request->file($this->row));
+        // if (!$files) {
+        //     return;
+        // }
 
         foreach ($files as $file) {
-            if (!$file->isValid()) {
-                continue;
-            }
-
+            // if (!$file->isValid()) {
+            //     continue;
+            // }
             $image = InterventionImage::make($file)->orientate();
-
+            
             $resize_width = null;
             $resize_height = null;
 
@@ -54,9 +53,8 @@ class MultipleImageHandler extends BaseType
 
             $filename = Str::random(20);
             $path = $this->slug . "/" . $id . date('Y') . "/" . date('m') . "/";
-            $filePath = $path . Carbon::now()->timestamp . '_' . uniqid() . '_' . $filename . '.' . $file->getClientOriginalExtension();
-            array_push($filesPath, $filePath);
-
+            $dir = $path . Carbon::now()->timestamp . '_' . uniqid() . '_' . $filename . '.' . $file->getClientOriginalExtension();
+            array_push($filesPath, $dir);
 
             $image = $image->resize(
                 $resize_width,
@@ -69,7 +67,7 @@ class MultipleImageHandler extends BaseType
                 }
             )->encode($file->getClientOriginalExtension(), $resize_quality);
 
-            Storage::disk(config('voyager.storage.disk'))->put($filePath, (string) $image, 'public');
+            Storage::disk(config('voyager.storage.disk'))->put($dir, (string) $image, 'public');
 
             if (isset($this->options->thumbnails)) {
                 foreach ($this->options->thumbnails as $thumbnails) {
