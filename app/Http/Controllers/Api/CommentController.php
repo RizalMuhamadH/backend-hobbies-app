@@ -28,7 +28,7 @@ class CommentController extends Controller
 
         $post->comments()->save($comment);
 
-        broadcast(new PostCommentSent($comment));
+        // broadcast(new PostCommentSent($comment));
 
         return (new CommentResource($comment))->additional(['meta' => [
             'code' => 200,
@@ -52,7 +52,7 @@ class CommentController extends Controller
 
         $post->comments()->save($reply);
 
-        broadcast(new PostCommentSent($reply));
+        // broadcast(new PostCommentSent($reply));
 
         return (new CommentResource($reply))->additional(['meta' => [
             'code' => 200,
@@ -91,7 +91,7 @@ class CommentController extends Controller
         $comment = Comment::find($id);
         Comment::destroy($id);
 
-        broadcast(new PostCommentDelete($comment));
+        // broadcast(new PostCommentDelete($comment));
 
         return (new CommentResource($comment))->additional(['meta' => [
             'code' => 200,
