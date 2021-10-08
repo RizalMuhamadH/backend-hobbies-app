@@ -19,6 +19,7 @@ class UserResource extends JsonResource
             'name'          => $this->name,
             'email'         => $this->email,
             'avatar'        => $this->avatar,
+            'uid'           => $this->google_token,
             'notify_token'  => $this->notify_token,
             'following'     => $this->when(property_exists($this, 'me'), function () {
                 return $this->isFollowing($this->me);
