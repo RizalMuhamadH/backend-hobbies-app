@@ -193,4 +193,28 @@ class PostController extends Controller
 
         return response($response, $response['meta']['code']);
     }
+
+    public function destroy($id, $userId)
+    {
+        $post = Post::where('id', $id)->where('user_id', $userId)->first();
+
+        if ($post) {
+            $post->destroy();
+
+            return (new PostResource($post))->additional(['meta' => [
+                'code' => 200,
+                'message' => 'Delete successfuly'
+            ]])->response();
+        }
+
+        $response = [
+            'data' => null,
+            'meta' => [
+                'code' => 200,
+                'message' => 'Delete Failed'
+            ]
+        ];
+
+        return response($response, $response['meta']['code']);
+    }
 }
