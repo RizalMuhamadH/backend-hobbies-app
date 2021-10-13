@@ -199,7 +199,7 @@ class PostController extends Controller
         $post = Post::where('id', $id)->where('user_id', $userId)->first();
 
         if ($post) {
-            $post->destroy();
+            $post->delete();
 
             return (new PostResource($post))->additional(['meta' => [
                 'code' => 200,
