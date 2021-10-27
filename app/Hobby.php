@@ -21,11 +21,11 @@ class Hobby extends Model
 
     public function parent()
     {
-        return $this->belongsTo('Hobby', 'parent_id');
+        return $this->belongsTo(self::class, 'parent_id');
     }
 
     public function children()
     {
-        return $this->hasMany('Hobby', 'parent_id');
+        return $this->hasMany(self::class, 'parent_id');
     }
 }
