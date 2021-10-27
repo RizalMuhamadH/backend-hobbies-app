@@ -17,7 +17,9 @@ class HobbyResource extends JsonResource
         return
             [
                 'id'            => $this->id,
-                'name'          => $this->name
+                'name'          => $this->name,
+                // 'parent'        => $this->parent,
+                'children'      => HobbyResource::collection($this->whenLoaded('children'))
             ];
     }
 }
