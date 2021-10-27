@@ -13,7 +13,7 @@ class HobbyController extends Controller
 {
     public function getHobbies()
     {
-        $hobbies = Hobby::with('children')->all();
+        $hobbies = Hobby::with('children')->get();
 
         if ($hobbies) return HobbyResource::collection($hobbies)->additional(['meta' => [
             'code' => 200,
