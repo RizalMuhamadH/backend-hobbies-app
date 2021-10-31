@@ -32,9 +32,9 @@ class HobbyController extends Controller
         return response($response, $response['meta']['code']);
     }
 
-    public function choiceHobby(User $user, Hobby $hobby)
+    public function choiceHobby(Request $request, User $user)
     {
-        $user->hobbies()->attach($hobby);
+        $user->hobbies()->attach($request->hobbies);
 
         return (new UserProfileResource($user))->additional([
             'meta' => [

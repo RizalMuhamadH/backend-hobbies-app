@@ -18,7 +18,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('user/{user}/hobby/{hobby}', 'Api\HobbyController@choiceHobby');
+Route::post('user/{user}/hobby', 'Api\HobbyController@choiceHobby');
 
 
 Route::middleware(['auth:sanctum'])->group(function () {

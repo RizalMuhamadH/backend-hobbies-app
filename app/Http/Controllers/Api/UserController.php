@@ -165,7 +165,7 @@ class UserController extends Controller
 
             if ($request->hobby != $user->hobbies()->get()[0]->id) {
                 $user->hobbies()->detach();
-                $user->hobbies()->attach($request->hobby);
+                $user->hobbies()->attach($request->hobbies);
             }
 
             if ($user)
