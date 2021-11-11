@@ -18,11 +18,11 @@ class GroupResource extends JsonResource
             'id'           => $this->id,
             'name'         => $this->name,
             'description'  => $this->description,
-            'image'        => $this->image,
+            'image'        => $this->image->path,
             'private'      => $this->private,
             'settings'     => $this->settings,
-            $this->whenLoaded('user') == null ? '' :
-                'user'         => new UserResource($this->whenLoaded('user')),
+            'members'      => new UserResource($this->users),
+            'admin'        => new UserResource($this->user),
         ];
     }
 }

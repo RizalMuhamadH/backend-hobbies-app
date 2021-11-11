@@ -31,9 +31,25 @@ class GroupController extends Controller
 
         $group->addMembers(json_decode($request->users, true));
 
-        broadcast(new GroupCreated($group))->toOthers();
+        // broadcast(new GroupCreated($group))->toOthers();
 
-        return $group;
+        if ($group) {
+
+            return (new GroupResource($group))->additional(['meta' => [
+                'code' => 200,
+                'message' => 'Data found'
+            ]])->response();
+        }
+
+        $response = [
+            'data' => null,
+            'meta' => [
+                'code' => 200,
+                'message' => 'Data not found'
+            ]
+        ];
+
+        return response($response, $response['meta']['code']);
     }
 
     public function update(Request $request, $groupId)
@@ -61,10 +77,18 @@ class GroupController extends Controller
             }
         }
 
+        if ($group) {
+
+            return (new GroupResource($group))->additional(['meta' => [
+                'code' => 200,
+                'message' => 'Data found'
+            ]])->response();
+        }
+
         $response = [
             'data' => null,
             'meta' => [
-                'code' => 500,
+                'code' => 200,
                 'message' => 'Data not found'
             ]
         ];
