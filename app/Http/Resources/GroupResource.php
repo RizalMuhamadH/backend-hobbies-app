@@ -21,7 +21,7 @@ class GroupResource extends JsonResource
             'image'        => $this->image->path,
             'private'      => $this->private,
             'settings'     => $this->settings,
-            'members'      => new UserResource($this->users),
+            'members'      => UserResource::collection($this->users),
             'admin'        => new UserResource($this->user),
         ];
     }
