@@ -26,7 +26,7 @@ class ImageHandler extends BaseType
 
             $filename = $this->generateFileName($file, $path);
 
-            if($file->getClientMimeType() == 'image/heif' || $file->getClientMimeType() == 'image/heic'){
+            if($file->getClientMimeType() == 'image/heif' || $file->getClientMimeType() == 'image/heic' || $file->getClientMimeType() == 'application/octet-stream'){
                 $randomFilename = Str::random(20);
                 $tmpFilePath = storage_path('app/public/'.$randomFilename.'.'.$file->getClientOriginalExtension());
 
