@@ -26,18 +26,18 @@ class ImageHandler extends BaseType
 
             $filename = $this->generateFileName($file, $path);
 
-            if($file->getClientMimeType() == 'image/heif' || $file->getClientMimeType() == 'image/heic' || $file->getClientMimeType() == 'application/octet-stream'){
-                $randomFilename = Str::random(20);
-                $tmpFilePath = storage_path('app/public/'.$randomFilename.'.'.$file->getClientOriginalExtension());
+            // if($file->getClientMimeType() == 'image/heif' || $file->getClientMimeType() == 'image/heic' || $file->getClientMimeType() == 'application/octet-stream'){
+            //     $randomFilename = Str::random(20);
+            //     $tmpFilePath = storage_path('app/public/'.$randomFilename.'.'.$file->getClientOriginalExtension());
 
-                $convert = storage_path('app/public/'.$randomFilename.'.jpg');
+            //     $convert = storage_path('app/public/'.$randomFilename.'.jpg');
 
-                $img = File::put($tmpFilePath, $file->getContent());
+            //     $img = File::put($tmpFilePath, $file->getContent());
 
-                $ex = exec('magick convert '.$tmpFilePath.' '.$convert);
+            //     $ex = exec('magick convert '.$tmpFilePath.' '.$convert);
 
-                $file = $convert;
-            }
+            //     $file = $convert;
+            // }
 
             $image = InterventionImage::make($file)->orientate();
 
