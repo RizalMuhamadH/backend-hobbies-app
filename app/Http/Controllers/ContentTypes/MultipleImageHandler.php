@@ -59,7 +59,7 @@ class MultipleImageHandler extends BaseType
 
             $filename = Str::random(20);
             $path = $this->slug . "/" . $id . date('Y') . "/" . date('m') . "/";
-            $dir = $path . Carbon::now()->timestamp . '_' . uniqid() . '_' . $filename . '.' . $ext != '' ? $ext : $file->getClientOriginalExtension();
+            $dir = $path . Carbon::now()->timestamp . '_' . uniqid() . '_' . $filename . '.' . isset($ext) ? $ext : $file->getClientOriginalExtension();
             array_push($filesPath, $dir);
 
             $image = $image->resize(
@@ -71,7 +71,7 @@ class MultipleImageHandler extends BaseType
                         $constraint->upsize();
                     }
                 }
-            )->encode($ext != '' ? $ext : $file->getClientOriginalExtension(), $resize_quality);
+            )->encode(isset($ext) ? $ext : $file->getClientOriginalExtension(), $resize_quality);
 
             Storage::disk(config('voyager.storage.disk'))->put($dir, (string) $image, 'public');
 
@@ -101,18 +101,18 @@ class MultipleImageHandler extends BaseType
                                         $constraint->upsize();
                                     }
                                 }
-                            )->encode($ext != '' ? $ext : $file->getClientOriginalExtension(), $resize_quality);
+                            )->encode(isset($ext) ? $ext : $file->getClientOriginalExtension(), $resize_quality);
                     } elseif (isset($this->options->thumbnails) && isset($thumbnails->crop->width) && isset($thumbnails->crop->height)) {
                         $crop_width = $thumbnails->crop->width;
                         $crop_height = $thumbnails->crop->height;
                         $image = InterventionImage::make($file)
                             ->orientate()
                             ->fit($crop_width, $crop_height)
-                            ->encode($ext != '' ? $ext : $file->getClientOriginalExtension(), $resize_quality);
+                            ->encode(isset($ext) ? $ext : $file->getClientOriginalExtension(), $resize_quality);
                     }
 
                     Storage::disk(config('voyager.storage.disk'))->put(
-                        $path . $filename . '-' . $thumbnails->name . '.' . $ext != '' ? $ext : $file->getClientOriginalExtension(),
+                        $path . $filename . '-' . $thumbnails->name . '.' . isset($ext) ? $ext : $file->getClientOriginalExtension(),
                         (string) $image,
                         'public'
                     );
