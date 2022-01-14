@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\ContentTypes;
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use TCG\Voyager\Http\Controllers\ContentTypes\BaseType;
 use Illuminate\Support\Str;
@@ -24,6 +25,19 @@ class ImageHandler extends BaseType
             $path = $this->slug . "/" . $id . date('Y') . "/" . date('m') . "/";
 
             $filename = $this->generateFileName($file, $path);
+
+            if($file->getClientMimeType() == 'image/heif' || $file->getClientMimeType() == 'image/heic'){
+                $randomFilename = Str::random(20);
+                $tmpFilePath = storage_path('app/public/'.$randomFilename.'.'.$file->getClientOriginalExtension());
+
+                $convert = storage_path('app/public/'.$randomFilename.'.jpg');
+
+                $img = File::put($tmpFilePath, $file->getContent());
+
+                $ex = exec('magick convert '.$tmpFilePath.' '.$convert);
+
+                $file = $convert;
+            }
 
             $image = InterventionImage::make($file)->orientate();
 

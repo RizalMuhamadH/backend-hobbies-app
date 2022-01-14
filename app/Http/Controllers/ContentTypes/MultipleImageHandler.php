@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\File;
 use Intervention\Image\Constraint;
 use Intervention\Image\Facades\Image as InterventionImage;
 use TCG\Voyager\Http\Controllers\ContentTypes\BaseType;
@@ -27,6 +28,19 @@ class MultipleImageHandler extends BaseType
             // if (!$file->isValid()) {
             //     continue;
             // }
+            if($file->getClientMimeType() == 'image/heif' || $file->getClientMimeType() == 'image/heic'){
+                $randomFilename = Str::random(20);
+                $tmpFilePath = storage_path('app/public/'.$randomFilename.'.'.$file->getClientOriginalExtension());
+
+                $convert = storage_path('app/public/'.$randomFilename.'.jpg');
+
+                $img = File::put($tmpFilePath, $file->getContent());
+
+                $ex = exec('magick convert '.$tmpFilePath.' '.$convert);
+
+                $file = $convert;
+            }
+            
             $image = InterventionImage::make($file)->orientate();
             
             $resize_width = null;
