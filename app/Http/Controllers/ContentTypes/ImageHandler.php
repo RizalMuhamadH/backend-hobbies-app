@@ -26,6 +26,7 @@ class ImageHandler extends BaseType
 
             $filename = $this->generateFileName($file, $path);
 
+            $ext = null;
             if($file->getClientMimeType() == 'image/heif' || $file->getClientMimeType() == 'image/heic' || $file->getClientMimeType() == 'application/octet-stream'){
                 $ext = 'jpg';
             }

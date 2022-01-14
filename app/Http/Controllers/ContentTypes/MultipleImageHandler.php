@@ -28,6 +28,7 @@ class MultipleImageHandler extends BaseType
             // if (!$file->isValid()) {
             //     continue;
             // }
+            $ext = null;
             if($file->getClientMimeType() == 'image/heif' || $file->getClientMimeType() == 'image/heic' || $file->getClientMimeType() == 'application/octet-stream'){
                 $ext = 'jpg';
             }
