@@ -128,7 +128,7 @@ class PostController extends Controller
         return PostResource::collection($post);
     }
 
-    public function feedFollowings($id)
+    public function feedFollowings($id, Request $request)
     {
         $user = User::find($id);
 
@@ -139,9 +139,9 @@ class PostController extends Controller
             }
             array_push($arr, $user->id);
 
-            $post = Post::whereIn('user_id', $arr)->orderBy('created_at', 'desc')->get();
+            if ($request->state && $request->limit) {
+                $post = Post::whereIn('user_id', $arr)->orderBy('created_at', 'desc')->paginate($request->limit)->appends(array('state' => $request->state, 'limit' => $request->limit));
 
-            if ($post != '[]') {
                 $posts = PostResource::collection($post);
                 $posts->map(function ($v) use ($user) {
                     $v->me = $user;
@@ -150,17 +150,32 @@ class PostController extends Controller
                     'code' => 200,
                     'message' => 'Data found'
                 ]])->response();
+            } else {
+
+                $post = Post::whereIn('user_id', $arr)->orderBy('created_at', 'desc')->get();
+
+                if ($post != '[]') {
+                    $posts = PostResource::collection($post);
+                    $posts->map(function ($v) use ($user) {
+                        $v->me = $user;
+                    });
+                    return ($posts)->additional(['meta' => [
+                        'code' => 200,
+                        'message' => 'Data found'
+                    ]])->response();
+                }
             }
 
+
             $response = [
-                'data' => null,
+                'data' => [],
                 'meta' => [
                     'code' => 500,
                     'message' => 'Data not found'
                 ]
             ];
 
-            return response($response, $response['meta']['code']);
+            return response($response, 200);
         }
     }
 
