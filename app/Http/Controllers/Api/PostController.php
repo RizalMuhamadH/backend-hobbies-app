@@ -139,7 +139,7 @@ class PostController extends Controller
             }
             array_push($arr, $user->id);
 
-            if ($request->state && $request->limit) {
+            if ($request->page && $request->limit) {
                 $post = Post::whereIn('user_id', $arr)->orderBy('created_at', 'desc')->paginate($request->limit)->appends(array('state' => $request->state, 'limit' => $request->limit));
 
                 $posts = PostResource::collection($post);
